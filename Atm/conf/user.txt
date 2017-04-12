@@ -1,1 +1,3 @@
-username:admin:pass:0
+auth:admin:pass:0
+auth:junly:admin:0
+
