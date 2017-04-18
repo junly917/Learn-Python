@@ -13,7 +13,7 @@ print("""
 """)
 
 login_status = login.login()
-if login_status ==1 :
+if login_status ==0 :
     while True:
         print("""
             1. 修改额度
@@ -44,7 +44,7 @@ if login_status ==1 :
             if opstat == 7:
                 pass
             if opstat == 8:
-                account.addacount()
+                account.manageaccount()
             if opstat == 9:
                 login.logout()
         except:

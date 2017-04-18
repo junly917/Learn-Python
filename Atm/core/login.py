@@ -32,18 +32,16 @@ def login():
                 if '#' in line:
                     continue
                 else:
-                    print username,line.split(':')[2]
-                    if 'auth' in line and (username in line.split(':')[1]) and (passwd in line.split(':')[2]):
+                    #print type(line.split(':')[2])
+                    if 'auth' in line and (username == line.split(':')[1]) and (passwd == line.split(':')[2]):
                         #file format:
                         # auth:user:passwd:cost
                         print("Login Sucesses")
-                        return 1
-                    else:
-                        print("Err: invlid Username or Password")
-                        count +=1
-
+                        return 0
             f.close()
-
+            count +=1
+            print("Err: invlid Username or Password")
+            #return 1
 def logout():
     pass
-login()
+#login()

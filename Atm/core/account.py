@@ -29,23 +29,13 @@ def manageaccount():
     '''账号管理'''
     while True:
         print("""您可以进行以下操作：
-            a: 添加用户
-            b: 列表所有用户
-            c: 修改用户属性
-            d: 删除用户
+            a: 修改用户属性
               """)
         optuser = raw_input("请选择您的操作：").strip()
-        if optuser not in ['a','b','c','d']:
+        if optuser not in ['a']:
             print("您输入的有问题，请重新输入")
         if optuser == 'a':
-            addacount()
-        if optuser == 'b':
-            print showaccount()
-        if optuser == 'c':
             modfiyaccount()
-        if optuser == 'd':
-            delaccount()
-            #delaccount()
 
 def modfiyaccount():
     user = showaccount().values()

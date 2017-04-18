@@ -1,3 +1,2 @@
 auth:admin:pass:0
-auth:junly:admin:0
 
