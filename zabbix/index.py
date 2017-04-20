@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+'''
 import json
 import urllib2
 from urllib2 import URLError
@@ -224,3 +225,41 @@ def main():
     #test.get_grouphost()
 if __name__ == "__main__":
     main()
+'''
+
+
+
+class schoolmember(object):
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+        # print("###%s#%s"%(self.name,self.age))
+    def tell(self):
+        print("%s,old is %d"%(self.name,self.age))
+
+class Teacher(schoolmember):
+    def __init__(self,name,age,salary):
+        self.salary = salary
+        super(Teacher,self).__init__(name,age)
+        print("Initialized Teacher %s.." % self.name)
+    def tell(self):
+        schoolmember.tell(self)
+        print("%s is teaching %s" % (self.name,self.salary))
+
+class Students(schoolmember):
+    def __init__(self,name,age,scop):
+        super(Students,self).__init__(name,age)
+        self.scop = scop
+        print("Initializtion Students %s"% self.name)
+    def tell(self):
+        schoolmember.tell(self)
+
+    def Chioce(self):
+        print("%s Chioce is scop is %s" % (self.name,self.scop))
+
+init_t = Teacher("huang",23,2000)
+init_t.tell()
+init_s = Students("amw",20,"python")
+init_s.Chioce()
+print dir(Students)
+

@@ -3,13 +3,13 @@
 import json,urllib2
 from urllib2 import URLError
 
-class class_create_host(object):
+class Class_Create_Host(object):
     def __init__(self):
         self.url = 'http://192.168.101.147/zabbix/api_jsonrpc.php'
         self.header ={"Content-Type":"application/json"}
-        self.AuthID = self.login()
+        self.AuthID = self.Login()
 
-    def login(self):
+    def Login(self):
         data = json.dumps({
             "jsonrpc":"2.0","method":"user.login",
             "params":{"user":"Admin","password":"zabbix"},"id":0,
@@ -24,11 +24,11 @@ class class_create_host(object):
         else:
             response = json.loads(result.read())
             result.close()
-        print response['result']
+        #print response['result']
         return response['result']
 
-    def create_host(self):
-        hostip="192.168.101.213"
+    def Create_Host(self):
+        hostip=raw_input("Please Input host ip: ")
         data = json.dumps({
             "jsonrpc": "2.0",
             "method": "host.create",
@@ -44,7 +44,7 @@ class class_create_host(object):
                                     "port": "10050"
                                 }
                             ],
-                            "groups": [{"groupid":"1"}],
+                            "groups": [{"groupid":"2"}],
                             "templates":[{"templateid":"10001"}]
                     },
             "auth": self.AuthID,
@@ -62,5 +62,53 @@ class class_create_host(object):
             response = json.loads(result.read())
             result.close()
         return response
-test = class_create_host()
-print test.create_host()
+
+    def Get_Host_Data(self):
+        data = json.dumps({
+            "jsonrpc":"2.0",
+            "method":"host.get",
+            "params":{
+                #"output":["hostid","name","status","available"],
+                "output":["name","available","host"],
+                "filter":{
+                    # "host":[]
+                }
+            },
+            "auth":self.AuthID,
+            "id":1,
+        })
+        request = urllib2.Request(self.url,data)
+        i=1
+        for key in self.header:
+            request.add_header(key,self.header[key])
+        try:
+            result = urllib2.urlopen(request)
+            i+=1
+        except URLError as e :
+            print "Get Host Data is Error,Please Check it!",e.code
+        else:
+            response = json.loads(result.read())
+            result.close()
+        # print response
+        totale = online = offline = 0
+        for i in response["result"]:
+            totale +=1
+            if i['available'] == '2':
+                offline +=1
+            else:
+                online +=1
+        response["host_totale"]=totale
+        response["host_online"]=online
+        response["host_offline"]=offline
+        return response
+
+    def Delete_Host(self):
+        pass
+# 
+# test = Class_Create_Host()
+# print test.Create_Host()
+# print test.Get_Host_Data()
+# res = test.Get_Host_Data()
+# print res
+# dict1 = res['result']
+# print dict1
