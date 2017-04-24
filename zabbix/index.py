@@ -1,265 +1,200 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''
-import json
-import urllib2
-from urllib2 import URLError
-import sys
-class zabbixtools:
-    def __init__(self):
-        self.url = "http://192.168.101.147/zabbix/api_jsonrpc.php"
-        self.header = {"Content-Type": "application/json"}
-        self.authID = self.user_login()
-    def user_login(self):
-        data = json.dumps(
-                {
-                    "jsonrpc": "2.0",
-                    "method": "user.login",
-                    "params": {
-                        "user": "Admin",
-                        "password": "zabbix"
-                        },
-                    "id": 0
-                    })
-        request = urllib2.Request(self.url,data)
-        for key in self.header:
-            request.add_header(key,self.header[key])
-        try:
-            result = urllib2.urlopen(request)
-        except URLError as e:
-            print "Auth Failed, Please Check Your Name And Password:",e.code
-        else:
-            response = json.loads(result.read())
-            result.close()
-            authID = response['result']
-            return authID
-    def get_data(self,data,hostip=""):
-        request = urllib2.Request(self.url,data)
-        for key in self.header:
-            request.add_header(key,self.header[key])
-        try:
-            result = urllib2.urlopen(request)
-        except URLError as e:
-            if hasattr(e, 'reason'):
-                print 'We failed to reach a server.'
-                print 'Reason: ', e.reason
-            elif hasattr(e, 'code'):
-                print 'The server could not fulfill the request.'
-                print 'Error code: ', e.code
-            return 0
-        else:
-            response = json.loads(result.read())
-            result.close()
-            return response
-    def host_get(self,hostip):
-        #hostip = raw_input("\033[1;35;40m%s\033[0m" % 'Enter Your Check Host:Host_ip :')
-        data = json.dumps(
-                {
-                    "jsonrpc": "2.0",
-                    "method": "host.get",
-                    "params": {
-                        "output":["hostid","name","status","host"],
-                        "filter": {"host": [hostip]}
-                        },
-                    "auth": self.authID,
-                    "id": 1
-                })
-        res = self.get_data(data)['result']
-        if (res != 0) and (len(res) != 0):
-            #for host in res:
-            host = res[0]
-            if host['status'] == '1':
-                print "\t","\033[1;31;40m%s\033[0m" % "Host_IP:","\033[1;31;40m%s\033[0m" %host['host'].ljust(15),'\t',"\033[1;31;40m%s\033[0m" % "Host_Name:","\033[1;31;40m%s\033[0m"% host['name'].encode('GBK'),'\t',"\033[1;31;40m%s\033[0m" % u'unmonitor'.encode('GBK')
-                return host['hostid']
-            elif host['status'] == '0':
-                print "\t","\033[1;32;40m%s\033[0m" % "Host_IP:","\033[1;32;40m%s\033[0m" %host['host'].ljust(15),'\t',"\033[1;32;40m%s\033[0m" % "Host_Name:","\033[1;32;40m%s\033[0m"% host['name'].encode('GBK'),'\t',"\033[1;32;40m%s\033[0m" % u'monitor'.encode('GBK')
-                return host['hostid']
-            print
-        else:
-            print '\t',"\033[1;31;40m%s\033[0m" % "Get Host Error or cannot find this host,please check !"
-            return 01.1
-    def get_grouphost(self):
-        groupid = raw_input("\033[1;35;40m%s\033[0m" % 'Enter Your groupid:')
-        data = json.dumps(
-            {
-               "jsonrpc":"2.0",
-               "method":"host.get",
-               "params":{
-                   "output":["hostid","name","status","host"],
-                   #"output": "extend",
-                   "groupids":groupid,
-               },
-               "auth": self.authID,
-               "id":1,
-            })
-        res = self.get_data(data)
-        if 'result' in res.keys():
-            res = res['result']
-            if (res !=0) or (len(res) != 0):
-                print "\033[1;32;40m%s\033[0m" % "Number Of Hosts: ","\033[1;31;40m%d\033[0m" % len(res)
-                for host in res:
-                    print "Host ID:",host['hostid'],"Visible name:",host['name'],"Host-status:",host['status'],"HostName:",host['host']
-        else:
-            print "The groupid does not exist, please check!"
-    def host_del(self):
-        hostip = raw_input("\033[1;35;40m%s\033[0m" % 'Enter Your Check Host:Host_ip :')
-        hostid = self.host_get(hostip)
-        print hostid
-        if hostid == 0:
-            print '\t',"\033[1;31;40m%s\033[0m" % "This host cannot find in zabbix,please check it !"
-            sys.exit()
-        data = json.dumps(
-                {
-                    "jsonrpc": "2.0",
-                    "method": "host.delete",
-                    "params": [hostid],
-                    "auth": self.authID,
-                    "id": 1
-                })
-        res = self.get_data(data)['result']
-        if 'hostids' in res.keys():
-            print "\t","\033[1;32;40m%s\033[0m" % "Delet Host:%s success !" % hostip
-        else:
-            print "\t","\033[1;31;40m%s\033[0m" % "Delet Host:%s failure !" % hostip
-    def hostgroup_get(self):
-        data = json.dumps(
-                {
-                    "jsonrpc": "2.0",
-                    "method": "hostgroup.get",
-                    "params": {
-                        "output": "extend",
-                        },
-                    "auth": self.authID,
-                    "id": 1,
-                    })
-        res = self.get_data(data)
-        if 'result' in res.keys():
-            res = res['result']
-            if (res !=0) or (len(res) != 0):
-                print "\033[1;32;40m%s\033[0m" % "Number Of Group: ","\033[1;31;40m%d\033[0m" % len(res)
-                for host in res:
-                    print"\t","HostGroup_id:",host['groupid'],"\t","HostGroup_Name:",host['name'].encode('GBK')
-        else:
-            print "Get HostGroup Error,please check !"
-    def template_get(self):
-        data = json.dumps(
-                {
-                    "jsonrpc": "2.0",
-                    "method": "template.get",
-                    "params": {
-                        "output": "extend",
-                        },
-                    "auth": self.authID,
-                    "id": 1,
-                    })
-        res = self.get_data(data)#['result']
-        if 'result' in res.keys():
-            res = res['result']
-            if (res !=0) or (len(res) != 0):
-                print "\033[1;32;40m%s\033[0m" % "Number Of Template: ","\033[1;31;40m%d\033[0m" % len(res)
-                for host in res:
-                    print"\t","Template_id:",host['templateid'],"\t","Template_Name:",host['name'].encode('GBK')
-                print
-        else:
-            print "Get Template Error,please check !"
-    def host_create(self):
-        hostip = raw_input("\033[1;35;40m%s\033[0m" % 'Enter your:Host_ip :')
-        print hostip,type(hostip)
-        #Visible_name = raw_input("\033[1;35;40m%s\033[0m" % 'Enter your:Visible name :')
-        groupid = raw_input("\033[1;35;40m%s\033[0m" % 'Enter your:Group_id :')
-        templateid = raw_input("\033[1;35;40m%s\033[0m" % 'Enter your:Tempate_id :')
-        g_list=[]
-        t_list=[]
-        for i in groupid.split(','):
-            var = {}
-            var['groupid'] = i
-            g_list.append(var)
-            print g_list
-        for i in templateid.split(','):
-            var = {}
-            var['templateid'] = i
-            t_list.append(var)
-            print t_list
 
-        if hostip and groupid and templateid:
-            data = json.dumps(
-                    {
-                        "jsonrpc": "2.0",
-                        "method": "host.create",
-                        "params": {
-                            "host": hostip,
-                            "interfaces": [
-                                {
-                                    "type": 1,
-                                    "main": 1,
-                                    "useip": 1,
-                                    "ip": hostip,
-                                    "dns": "",
-                                    "port": "10050"
-                                }
-                            ],
-                            "groups": g_list,
-                            "templates": t_list,
-                    },
-                        "auth": self.authID,
-                        "id": 1,
-                        })
-            res = self.get_data(data,hostip)
-            print res
-
-            if 'result' in res.keys():
-                res = res['result']
-                if 'hostids' in res.keys():
-                    print "\033[1;32;40m%s\033[0m" % "Create host success"
-            else:
-                print "\033[1;31;40m%s\033[0m" % "Create host failure: %s" % res['error']['data']
-        else:
-            print "\033[1;31;40m%s\033[0m" % "Enter Error: ip or groupid or tempateid is NULL,please check it !"
-def main():
-    test = zabbixtools()
-    test.template_get()
-    test.hostgroup_get()
-    #test.host_get()
-    #test.host_del()
-    test.host_create()
-    #test.get_grouphost()
-if __name__ == "__main__":
-    main()
 '''
 
-
-
-class schoolmember(object):
+class Schoolmember(object):
     def __init__(self,name,age):
         self.name = name
         self.age = age
-        # print("###%s#%s"%(self.name,self.age))
-    def tell(self):
-        print("%s,old is %d"%(self.name,self.age))
 
-class Teacher(schoolmember):
-    def __init__(self,name,age,salary):
-        self.salary = salary
+    def tellme(self):
+        print("Hello,我的名字是：%s" % self.name)
+
+class Teacher(Schoolmember):
+    def __init__(self,name,age,salarys):
         super(Teacher,self).__init__(name,age)
-        print("Initialized Teacher %s.." % self.name)
-    def tell(self):
-        schoolmember.tell(self)
-        print("%s is teaching %s" % (self.name,self.salary))
+        self.salarys = salarys
+        Teachers=Schoolmember(name,age).tellme()
 
-class Students(schoolmember):
-    def __init__(self,name,age,scop):
-        super(Students,self).__init__(name,age)
-        self.scop = scop
-        print("Initializtion Students %s"% self.name)
-    def tell(self):
-        schoolmember.tell(self)
+    def salary(self):
+        print("老师：%s的工资是： %s" % (self.name,self.salarys))
 
-    def Chioce(self):
-        print("%s Chioce is scop is %s" % (self.name,self.scop))
+class Student(Schoolmember):
+    def __init__(self,name,age,grade,kec):
+        super(Student,self).__init__(name,age)
+        Students=Schoolmember(name,age).tellme()
+        self.grade = grade
+        self.kec = kec
 
-init_t = Teacher("huang",23,2000)
-init_t.tell()
-init_s = Students("amw",20,"python")
-init_s.Chioce()
-print dir(Students)
+    def lears(self):
+        print("学生：%s 课程是： %s"%(self.name,self.kec))
+
+if __name__ == "__main__":
+    t1 = Teacher("junly","23","2000")
+    t2 =Teacher("huang","30","3000")
+    s1 = Student("h1","20","F","it")
+    s2 = Student("h2","23","M","Python")
+    s1.lears()
+    s2.lears()
+
+'''
+
+'''
+class jiao(object):
+    def __init__(self,sex):
+        self.sex = sex
+        print("jiao sex is " % (self.sex))
+
+class mao(jiao):
+    def __init__(self,name):
+        self.name = name
+        print("this is mao name is: %s" %self.name)
+    def jao(self):
+        print("Miao...!")
+
+class wa(jiao):
+    def __init__(self,name):
+        self.name = name
+        print("this is gou name is: %s" %(self.name))
+    def jao(self):
+        print("Wa...!")
+
+def fun(obj):
+    obj.jao()
+
+if __name__ == "__main__":
+    dog1=wa("Mq")
+    mao1=mao("Fq")
+    fun(dog1)
+    fun(mao1)
+'''
+
+'''
+class fly(object):
+    def __init__(self,name):
+        self.name = name
+
+    def checkfly(self,name):
+        print("Check Fly Name is %s"%(self.name))
+        return 1
+
+    @property
+    def status(self):
+        check_result = self.checkfly(self.name)
+        if check_result == 1:
+            print("online")
+        elif check_result == 2:
+            print("offline")
+        elif check_result ==0:
+            print("goed")
+        else:
+            print("等会来查吧！")
+
+    @status.setter
+    def status(self,num):
+        print num
+        status_dic = {
+            0:'cacelled',
+            1:'arrived',
+            2:'departured'
+        }
+        print("status is %s"%status_dic.get(num))
+
+    @status.deleter
+    def status(self):
+        print("Delete status.")
+if __name__ == "__main__":
+    f1 = fly("3330")
+    f1.status
+    f1.status =2
+    # f1.status(2)
+'''
+
+'''
+class Foo:
+    def __getitem__(self, item):
+        print("keys",item)
+names=Foo()
+result = names['k1']
+
+'''
+
+'''
+#定义类及类的方法、属性
+class foo(object):
+    def __init__(self):
+        self.name = 'haha'
+        print("haha")
+
+    @property
+    def func(self):
+        print("func")
+        return 'func'
+#实例化
+classis = 'foo'
+execclass = eval(classis)()
+
+
+#反射的调用方法
+fun = getattr(execclass,'func')
+execclass.func
+'''
+
+'''
+class mydefins(Exception):
+    def __init__(self,mesg):
+        self.msg=mesg
+
+    def __str__(self):
+        return self.msg
+try:
+    mydefins("erros")
+except Exception,e:
+    print(e)
+
+else:
+    print("haha")
+finally:
+    print("hehe")
+'''
+
+'''
+class foo(object):
+    funcs = 'abc'
+    def __init__(self):
+        self.name = 'haha'
+    def func(self):
+        self.name= 'hehe'
+s = foo()
+print(hasattr(s,'name'))
+print(hasattr(s,'func'))
+
+print(getattr(s,'name'))
+print(getattr(s,'func'))
+
+print(setattr(s,'name','kkk'))
+print(setattr(s,'func',lambda  num:num+1))
+print(getattr(s,'name'))
+print(getattr(s,'func'))
+
+print(delattr(s,'name'))
+print(delattr(s,'func'))
+# print(getattr(s,'name'))
+print(getattr(s,'func'))
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
