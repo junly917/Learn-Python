@@ -1,27 +1,36 @@
 #!/usr/bin/env python
 #encoding:utf-8
+'''
+import socket,os,commands
 
-import socket
+server = socket.socket()
+server.bind(('localhost',2222))
+server.listen(4)
+print("Waiting New Connection...")
+while True:
+    conn,addr = server.accept()
+    print("New Connection addr is" , addr)
+    data = conn.recv(1024)
+    print("Client Send Command is ", data)
+    if len(data) == 0 :
+        print("Disconnect to Server..")
+    else:
+        result = os.popen(data).read()
+        print("result is :",result)
+    conn.send(str(len(result)))
+    conn.recv(1024)
+    conn.send(result)
+server.close()
+'''
 
-def handle_request(client):
-    buf=client.recv(2048)
-    client.sen("hello World")
-def main():
-    sk = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    sk.bind(('127.0.0.1',9990))
-    sk.listen(10)
-    while True:
-        conn,addr = sk.accept()
-        handle_request(conn)
-        conn.close()
+class my(object):
+    def __init__(self):
+        pass
+    def login(self):
+        pass
+name = 'logins abc'
+print(name.split()[0])
+print(hasattr(my(),name.split()[0]))
 
-
-if __name__ == '__main__':
-    main()
-
-
-
-
-
-
-
+name = ('a','b')
+print(name[1])
