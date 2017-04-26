@@ -4,7 +4,7 @@
 
 import  socket,json,sys,hashlib,time
 
-host,port = '192.168.101.98',31397
+host,port = 'localhost',31397
 
 class ftp_opt(object):
     '''
@@ -56,12 +56,30 @@ class ftp_opt(object):
                 continue
             elif userdata == 'quit' or userdata == 'exit':
                 #exit login
+                self.client.close()
                 main().login
             else:
-                self.client.send(userdata)
-                data = self.client.recv(1024)
-                print(data)
+                self.client.send(userdata)      #send commands
+                result = self.client.recv(1024)
+                print(result)
+                lens = json.loads(result)   #recv commands result length
+                # print(type(lens),':',lens)
+                if lens['len'] > 1024:
+                    self.client.send('continue')    #发送继续状态
+                    part_len = 0
+                    tatol_data = ""
+                    while part_len < int(lens):
+                        data = self.client.recv(1024)
+                        part_len +=len(data)
+                        tatol_data += data
 
+                elif lens['len'] > 0 and lens['len'] < 1024 :
+                    self.client.send('continue')  # 发送继续状态
+                    tatol_data = self.client.recv(1024)
+
+                else:
+                    tatol_data = lens['status']
+                print(tatol_data)
 
 class main(object):
     def __init__(self):
@@ -101,11 +119,11 @@ class main(object):
                     login_count +=1
                     continue
 
-
-
 if __name__ == "__main__":
-    start = main()
-    start.login
+    # start = main()
+    # start.login
+    s = ftp_opt()
+    s.opt_ftp()
 
 
 

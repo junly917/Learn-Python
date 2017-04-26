@@ -4,7 +4,7 @@
 import SocketServer,json
 import os,sys,commands
 
-host,port='192.168.101.98', 31397
+host,port='localhost', 31397
 
 class ftp_function(object):
     '''
@@ -33,32 +33,6 @@ class ftp_function(object):
 
 class MyHandler(SocketServer.BaseRequestHandler):
 
-    def handle(self):
-        print("New Connect,from:%s" % self.client_address[0])
-        data = self.request.recv(1024)
-        userdata = (json.loads(data))
-        auth_result = self.auth(userdata)
-        self.request.send(auth_result)
-
-        while True:
-            data = self.request.recv(1024)
-            ftp_opt = ftp_function()
-            if not data :
-                print("Disconnect from %s" % self.client_address[0])
-            else:
-                print("from %s send %s" % (self.client_address[0], data))
-                print 'data:',data ,'type',type(data)
-                cmds = data.split()[0]
-                if hasattr(self,cmds):
-                    func = getattr(self,cmds)
-                    func()
-                else:
-                    self.command(data)
-
-            # self.request.send('hello')
-            if data == 'exit':
-                break
-
     def auth(self,data):
         user = data.get('user')
         passwd = data['passwd']
@@ -75,16 +49,77 @@ class MyHandler(SocketServer.BaseRequestHandler):
             auth_result = 'failed'
         return auth_result
 
-    def get(self):
-        print("get")
+    def get(self,data):         #send get filename
+        result = {}
+        filename = data.split()[1]
+        if os.path.isfile(filename):
+            filesize = os.stat(filename).st_size
+            result["type"] = 'put'
+            result["len"] = "%d" % filesize
+            result["status"] = 'get file %s' % filename
+            print  result,filesize
 
-    def put(self):
-        print("put")
+            self.request.send(json.dumps(result))       #发送一个文件长度、type的字典
+            self.request.recv(1024)
+            f = open(filename,'r')
+            for line in f:
+                self.request.send(f)
+            print("file send done.")
+        else:
+            result["type"] = 'put'
+            result["len"] = -1
+            result["status"] = 'file %s is not exist' % filename
+            print result
+            self.request.send(json.dumps(result))
+
+    def put(self,data):
+        print("put",data)
 
     def command(self, cmds):
-        cmds = commands.getstatusoutput(cmds)
-        print cmds[1]
-        self.request.send(cmds[1])
+        '''
+            recv cmds commands
+        '''
+        result = {}
+        cmds = os.popen(cmds).read()        #exec cmds and get exec result
+        result["type"]='cmd'
+        result["len"]=len(cmds)
+        result["status"] = 'ok'
+
+        self.request.send(json.dumps(result))        #send result length
+        self.request.recv(1024)             #recive continue
+        self.request.send(cmds)             #send exe commands result
+
+
+    def handle(self):
+        print("New Connect,from:%s" % self.client_address[0])
+        '''
+        data = self.request.recv(1024)
+        userdata = (json.loads(data))
+        auth_result = self.auth(userdata)
+        self.request.send(auth_result)
+        '''
+        while True:
+            try:
+                data = self.request.recv(1024)
+                if data == '':
+                    #raise err print disconnect
+                    raise "error"
+                else:
+                    ftp_opt = ftp_function()
+                    print("from %s send %s" % (self.client_address[0], data))
+                    cmds = data.split()[0]
+                    if hasattr(self,cmds):
+                        func = getattr(self,cmds)
+                        func(data)
+                    else:
+                        self.command(data)
+
+                    # self.request.send('hello')
+                    if data == 'exit':
+                        break
+            except Exception as e :
+                print("Disconnect from %s" % self.client_address[0])
+                break
 
 
 
