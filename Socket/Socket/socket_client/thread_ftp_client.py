@@ -4,7 +4,7 @@
 
 import  socket,json,sys,hashlib,time
 
-host,port = 'localhost',31397
+host,port = 'localhost',31394
 
 class ftp_opt(object):
     '''
@@ -59,27 +59,48 @@ class ftp_opt(object):
                 self.client.close()
                 main().login
             else:
+
                 self.client.send(userdata)      #send commands
+                # print("第一次发送的命令是:",userdata)
+
+
                 result = self.client.recv(1024)
-                print(result)
-                lens = json.loads(result)   #recv commands result length
-                # print(type(lens),':',lens)
-                if lens['len'] > 1024:
-                    self.client.send('continue')    #发送继续状态
+                # print("num1 recv dict is :", result, "type is:", type(result))
+
+                recv_data = json.loads(result)   #recv commands result length
+                # print('data:',recv_data)
+                total_lens = recv_data['len']
+                print 'lens is %s' %total_lens
+                if total_lens > 1024:
+
+                    # print("第二次要求发送结果过来")
+                    self.client.send('continue')    #发送继续操作状态
+                    print('continue')
+
                     part_len = 0
                     tatol_data = ""
-                    while part_len < int(lens):
-                        data = self.client.recv(1024)
-                        part_len +=len(data)
-                        tatol_data += data
+                    recv =1
+                    while part_len < int(total_lens):
+                        new_recv_data = self.client.recv(1024)
+                        print("new_recv_data:" , new_recv_data)
 
-                elif lens['len'] > 0 and lens['len'] < 1024 :
-                    self.client.send('continue')  # 发送继续状态
-                    tatol_data = self.client.recv(1024)
+                        part_len += len(new_recv_data)
+                        print("len(data) is %s" % len(new_recv_data))
+                        recv +=1
+                        tatol_data += new_recv_data
+                        if recv == 20:
+                            break
 
                 else:
-                    tatol_data = lens['status']
-                print(tatol_data)
+                    # print("要求接收小于1024的内容")
+                    self.client.send('continue')  # 发送继续状态
+
+                    # print("开始接收小于1024的内容")
+                    tatol_data = self.client.recv(1024)
+
+
+                print (tatol_data)
+
 
 class main(object):
     def __init__(self):
