@@ -41,16 +41,16 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
 
     def put(self):
         print ('put file is ')
-        filename={}
-        filename_dict = self.request.recv(1024)
-        filename = filename_dict['name']
+        filename_dict = json.loads(self.request.recv(1024))             #接收字典内容
+        print("filename dict is:%s" % filename_dict)
+        filename=filename_dict["name"]
         file_count =0
         num = 1
         print('check file is exist.')
         if os.path.isfile(filename):        #检测文件是否存在，提示是否覆盖
-            filename_dict["status"] = 1     #文件己存在，需要客户端处理
+            filename_dict["status"] = 'exist'     #文件己存在，需要客户端处理
             print("send filename_dict['status']")
-            self.request.send(filename_dict["status"])
+            self.request.send(filename_dict["status"])    #发送字典回复
             overrid = self.request.recv(1024)
             if overrid == 'y' or overrid == 'Y':    #覆盖操作
                 print('override write')
@@ -81,20 +81,29 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
                             file_data = self.client.recv(1024)  # 文件较小
                             filename.write(file_data)  # 文件写入
                         filename.close()
-
-
-
+        else:
+            filename_dict["status"]="not_exist"
+            self.request.send(filename_dict["status"])
+            print("write file")
+            filename = open(filename, 'wb')
+            if int(filename_dict['len']) > 1024:  # 文件很大
+                while file_count < int(filename_dict['len']):
+                    file_data = self.client.recv(1024)
+                    file_count += len(file_data)
+                    filename.write(file_data)  # 文件写入
+            else:
+                file_data = self.client.recv(1024)  # 文件较小
+                filename.write(file_data)  # 文件写入
+            filename.close()
     def handle(self):
         while True:
             result_dict = {}
             try:
                 recv_cmd = self.request.recv(1024)          #接收客户端传过来的命令
                 cmds = recv_cmd.split()[0]
-                print (cmds,recv_cmd.split()[1])
-                #
-                # print ('recv_cmd:%s,cmds:%s,cmds_patter:%s' %(recv_cmd,cmds,cmds_patter))
 
                 if hasattr(self,cmds):                #如果是get put 操作则执行get和put 函数
+                    print('hassattr :%s' %cmds)
                     cmds_patter = recv_cmd.split()[1]
                     func = getattr(self,cmds)
                     func()
@@ -105,7 +114,7 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
                     result_dict["type"] = 'cmd'             #生成字典{类型，状态，长度}
                     result_dict["status"] = cmd_result[0]
                     result_dict["len"]=len(cmd_result[1])
-                    print(result_dict)
+                    print('result_dict:' ,result_dict)
 
                     self.request.send(json.dumps(result_dict))  #发送字典
 

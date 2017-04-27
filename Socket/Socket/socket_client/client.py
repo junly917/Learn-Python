@@ -75,37 +75,45 @@ class ftp_opt(object):
     def put(self,cmds,filename):
         print(cmds,filename)
         self.client.send(cmds)              #将命令传送给服务器
-        print('self put file')
+        # print('self put file')
         filename_dict = {}
-        filename_dict['type'] = 'put_file'
+        filename_dict['type'] = 'put'
         filename_dict['name'] = filename
         if os.path.isfile(filename):         # 检测本地文件是否存在
             # print(os.path.isfile(filename))
             filename_dict["len"] = os.path.getsize(filename)
             filename_dict["status"] = 0
-            filename_dict['info'] = filename ,' file is exist.'
-
+            filename_dict['info'] = filename + ' file is exist.'
+            # print(filename,filename_dict,filename_dict['len'])
             # print("filename is %s" % filename)
 
             self.client.send(json.dumps(filename_dict))    # 发送字典过去包含文件大小，文件名称，类型,状态
-
+            print("waiting response dict")
             client_recv = self.client.recv(1024)           # 接收回传的信息
-            print('client send data is: %s ' % client_recv)
-            if client_recv == 1 or client_recv == '1':
+            print 'client_recv:',client_recv
+            if client_recv== 'exist' :                # 1表示服务器己存在此文件
                 while True:
-                    chioces = raw_input('are you ovveride file %s' % filename_dict['name'])
+                    chioces = raw_input('are you ovveride file %s (y|n):' % filename_dict['name'])
                     if chioces == 'y' or chioces == 'Y' or chioces == 'n' or chioces == 'N':
                         self.client.send(chioces)
+                        break
                     else:
                         continue
-            f = open(filename,'r')          # 发送文件
-            for line in f:
-                print('send file .....')
-                self.client.send(json.dumps(line))
+                f = open(filename, 'r')  # 发送文件
+                for line in f.read():
+                    print line
+                    self.client.send(line)
 
-            print("send done.")             # 传输完成
+                    # print("send done.")             # 传输完成
+            else:       #服务器不存在此文件
+                f = open(filename, 'r')  # 直接发送文件
+                print('send file .....')
+                for line in f.read():
+                    self.client.send(line)
+                    print line
         else:
-            print("file %s is not exist" % filename)
+            # 检测本地文件不存在
+            print("%s is not exist" % filename)
 
     def exec_commands(self,send_data):
 
