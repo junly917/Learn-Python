@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #encoding:utf-8
 
-import  socket,json,sys,os,commands
+import  socket,json,sys,os,commands,time
 
 class ftp_opt(object):
     def __init__(self,host,port):
@@ -11,7 +11,11 @@ class ftp_opt(object):
 
     def inputsomething(self):                       #检测输入的内容，是否为命令、还是文件上传下载操作
         while True:
-            send_data = raw_input('-->').strip()
+            try:
+                send_data = raw_input('-->').strip()
+            except Exception,e:
+                print('Program exit')
+                sys.exit(0)
             if len(send_data) == 0 :
                 continue
             elif send_data == 'quit' or send_data == 'exit':
@@ -73,9 +77,10 @@ class ftp_opt(object):
                     continue
 
     def put(self,cmds,filename):
-        print(cmds,filename)
+        # print(cmds,filename)
+        print('Send cmds:',cmds)
         self.client.send(cmds)              #将命令传送给服务器
-        # print('self put file')
+
         filename_dict = {}
         filename_dict['type'] = 'put'
         filename_dict['name'] = filename
@@ -87,36 +92,43 @@ class ftp_opt(object):
             # print(filename,filename_dict,filename_dict['len'])
             # print("filename is %s" % filename)
 
+            print("send dict to Server.")
             self.client.send(json.dumps(filename_dict))    # 发送字典过去包含文件大小，文件名称，类型,状态
+            time.sleep(0.5)
             print("waiting response dict")
             client_recv = self.client.recv(1024)           # 接收回传的信息
             print 'client_recv:',client_recv
+
             if client_recv== 'exist' :                # 1表示服务器己存在此文件
                 while True:
                     chioces = raw_input('are you ovveride file %s (y|n):' % filename_dict['name'])
                     if chioces == 'y' or chioces == 'Y' or chioces == 'n' or chioces == 'N':
+                        print('user chiose is %s' %chioces)
                         self.client.send(chioces)
                         break
                     else:
                         continue
                 f = open(filename, 'r')  # 发送文件
+                print('file exist start write..')
                 for line in f.read():
                     print line
                     self.client.send(line)
 
                     # print("send done.")             # 传输完成
             else:       #服务器不存在此文件
+                print('file not exist start write..')
                 f = open(filename, 'r')  # 直接发送文件
                 print('send file .....')
                 for line in f.read():
                     self.client.send(line)
                     print line
+            f.close()
         else:
             # 检测本地文件不存在
             print("%s is not exist" % filename)
 
     def exec_commands(self,send_data):
-
+        print('exec commands')
         self.client.send(send_data)                                      #发送命令操作到服务器
 
         result_dict = json.loads(self.client.recv(1024))                 #接收命令的结果长度，类型，状态字典
@@ -137,4 +149,4 @@ class ftp_opt(object):
 
 
 if __name__ == '__main__':
-    ftp_opt('localhost',1996)
+    ftp_opt('localhost',1992)

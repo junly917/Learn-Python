@@ -41,13 +41,17 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
 
     def put(self):
         print ('put file is ')
+
+        print('recv to dicts')
         filename_dict = json.loads(self.request.recv(1024))             #接收字典内容
+
         print("filename dict is:%s" % filename_dict)
         filename=filename_dict["name"]
         file_count =0
         num = 1
-        print('check file is exist.')
+
         if os.path.isfile(filename):        #检测文件是否存在，提示是否覆盖
+            print('check file is exist.')
             filename_dict["status"] = 'exist'     #文件己存在，需要客户端处理
             print("send filename_dict['status']")
             self.request.send(filename_dict["status"])    #发送字典回复
@@ -55,12 +59,17 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
             if overrid == 'y' or overrid == 'Y':    #覆盖操作
                 print('override write')
                 filename = open(filename, 'wb')
-                if int(filename_dict['len']) > 1024:  # 文件很大
-                    while file_count < int(filename_dict['len']):
+                if filename_dict['len'] > 1024:  # 文件很大
+                    print('gt 1024 write')
+                    print 'file count is :' ,type(file_count),'filename_dict len is:',type(filename_dict['len'])
+                    while file_count < filename_dict['len']:
+                        print('wraite data is %s', file_data)
                         file_data = self.client.recv(1024)
                         file_count += len(file_data)
                         filename.write(file_data)  # 文件写入
+                    print('write data is finished')
                 else:
+                    print('lt 1024 write')
                     file_data = self.client.recv(1024)  # 文件较小
                     filename.write(file_data)  # 文件写入
                 filename.close()
@@ -82,6 +91,7 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
                             filename.write(file_data)  # 文件写入
                         filename.close()
         else:
+            print('check file is not exist.')
             filename_dict["status"]="not_exist"
             self.request.send(filename_dict["status"])
             print("write file")
@@ -91,10 +101,12 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
                     file_data = self.client.recv(1024)
                     file_count += len(file_data)
                     filename.write(file_data)  # 文件写入
+                    print 'file data is %s' %file_data
             else:
                 file_data = self.client.recv(1024)  # 文件较小
                 filename.write(file_data)  # 文件写入
             filename.close()
+
     def handle(self):
         while True:
             result_dict = {}
@@ -134,7 +146,7 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
                 break
 
 if __name__ == '__main__':
-    host, port = 'localhost', 1996
+    host, port = 'localhost', 1992
     start = SocketServer.ThreadingTCPServer((host,port),MyFtpServer)
     start.serve_forever()
 
