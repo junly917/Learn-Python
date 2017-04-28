@@ -39,6 +39,33 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
             print("file %s is not exist" % filename)
             self.request.send(json.dumps(filename_dict))
 
+    def __writefile(self,filename,filename_dict):
+        '''
+        写入文件当中
+        :param filename: 
+        :param filename_dict: 
+        :return: 
+        '''
+        filename = filename_dict["name"]
+        file_count = 0
+        num = 1
+        file_content = ''
+        with open(filename, 'wb') as fwrite:
+            if filename_dict['len'] > 1024:  # 文件很大
+                print('gt 1024 write')
+                print 'file count is :', type(file_count), 'filename_dict len is:', type(filename_dict['len'])
+                while file_count < filename_dict['len']:
+                    file_data = self.request.recv(1024)
+                    file_count += len(file_data)
+                    file_content += file_data
+                    print("while write file")
+                print('write data is finished')
+                fwrite(file_content)
+            else:
+                print('lt 1024 write')
+                file_data = self.request.recv(1024)  # 文件较小
+                fwrite.write(file_data)  # 文件写入
+
     def put(self):
         print ('put file is ')
 
@@ -49,6 +76,7 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
         filename=filename_dict["name"]
         file_count =0
         num = 1
+        file_content = ''
 
         if os.path.isfile(filename):        #检测文件是否存在，提示是否覆盖
             print('check file is exist.')
@@ -57,22 +85,22 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
             self.request.send(filename_dict["status"])    #发送字典回复
             overrid = self.request.recv(1024)
             if overrid == 'y' or overrid == 'Y':    #覆盖操作
-                print('override write')
-                filename = open(filename, 'wb')
-                if filename_dict['len'] > 1024:  # 文件很大
-                    print('gt 1024 write')
-                    print 'file count is :' ,type(file_count),'filename_dict len is:',type(filename_dict['len'])
-                    while file_count < filename_dict['len']:
-                        print('wraite data is %s', file_data)
-                        file_data = self.client.recv(1024)
-                        file_count += len(file_data)
-                        filename.write(file_data)  # 文件写入
-                    print('write data is finished')
-                else:
-                    print('lt 1024 write')
-                    file_data = self.client.recv(1024)  # 文件较小
-                    filename.write(file_data)  # 文件写入
-                filename.close()
+                self.__writefile(filename,filename_dict)
+                # print('override write')
+                # with open(filename, 'wb') as fwrite:
+                #     if filename_dict['len'] > 1024:  # 文件很大
+                #         print('gt 1024 write')
+                #         print 'file count is :' ,type(file_count),'filename_dict len is:',type(filename_dict['len'])
+                #         while file_count < filename_dict['len']:
+                #             file_data = self.request.recv(1024)
+                #             file_count += len(file_data)
+                #             file_content +=file_data
+                #         fwrite(file_content)
+                #         print('write data is finished')
+                #     else:
+                #         print('lt 1024 write')
+                #         file_data = self.request.recv(1024)  # 文件较小
+                #         fwrite.write(file_data)  # 文件写入
             else:           #不覆盖操作
                 print('Not override write')
                 while True:
@@ -80,32 +108,42 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
                         num += 1
                         continue
                     else:
-                        filename = open(filename, 'wb')
-                        if filename_dict['len'] > 1024:  # 文件很大
-                            while file_count < int(filename_dict['len']):
-                                file_data = self.client.recv(1024)
-                                file_count += len(file_data)
-                                filename.write(file_data)  # 文件写入
-                        else:
-                            file_data = self.client.recv(1024)  # 文件较小
-                            filename.write(file_data)  # 文件写入
-                        filename.close()
+                        self.__writefile(filename,filename_dict)
+                        # with open(filename, 'wb') as fwrite:
+                        #     if filename_dict['len'] > 1024:  # 文件很大
+                        #         print('gt 1024 write')
+                        #         print 'file count is :', type(file_count), 'filename_dict len is:', type(
+                        #             filename_dict['len'])
+                        #         while file_count < filename_dict['len']:
+                        #             file_data = self.request.recv(1024)
+                        #             file_count += len(file_data)
+                        #             file_content+=file_data
+                        #             print("continue while recv")
+                        #         print('write data is finished')
+                        #         fwrite(file_content)  # 文件写入
+                        #
+                        #     else:
+                        #         print('lt 1024 write')
+                        #         file_data = self.request.recv(1024)  # 文件较小
+                        #         fwrite.write(file_data)  # 文件写入
+
         else:
             print('check file is not exist.')
             filename_dict["status"]="not_exist"
             self.request.send(filename_dict["status"])
             print("write file")
-            filename = open(filename, 'wb')
-            if int(filename_dict['len']) > 1024:  # 文件很大
-                while file_count < int(filename_dict['len']):
-                    file_data = self.client.recv(1024)
-                    file_count += len(file_data)
-                    filename.write(file_data)  # 文件写入
-                    print 'file data is %s' %file_data
-            else:
-                file_data = self.client.recv(1024)  # 文件较小
-                filename.write(file_data)  # 文件写入
-            filename.close()
+            self.__writefile(filename, filename_dict)
+            # filename = open(filename, 'wb')
+            # if int(filename_dict['len']) > 1024:  # 文件很大
+            #     while file_count < int(filename_dict['len']):
+            #         file_data = self.request.recv(1024)
+            #         file_count += len(file_data)
+            #         filename.write(file_data)  # 文件写入
+            #         print('file count is %s' % file_count)
+            # else:
+            #     file_data = self.request.recv(1024)  # 文件较小
+            #     filename.write(file_data)  # 文件写入
+            # filename.close()
 
     def handle(self):
         while True:
@@ -145,8 +183,9 @@ class MyFtpServer(SocketServer.BaseRequestHandler):
                 print("client %s disconnect." % self.client_address[0])
                 break
 
+
 if __name__ == '__main__':
-    host, port = 'localhost', 1992
+    host, port = '0.0.0.0', 3996
     start = SocketServer.ThreadingTCPServer((host,port),MyFtpServer)
     start.serve_forever()
 

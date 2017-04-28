@@ -119,9 +119,11 @@ class ftp_opt(object):
                 print('file not exist start write..')
                 f = open(filename, 'r')  # 直接发送文件
                 print('send file .....')
+                i = 1
                 for line in f.read():
                     self.client.send(line)
-                    print line
+                    i+=1
+                    print('write line num is %s'% i)
             f.close()
         else:
             # 检测本地文件不存在
