@@ -23,8 +23,10 @@ class ftp_opt(object):
             elif hasattr(self,send_data.split()[0]):
                 func = getattr(self,send_data.split()[0])
                 func(send_data,send_data.split()[1])
+            elif send_data in ['rls','rll','rcd','rrm']:
+                 self.exec_commands(send_data)
             else:
-                self.exec_commands(send_data)
+                self.local_commands(send_data)
 
     def get(self,send_data,filename):
         self.client.send(send_data)
@@ -110,9 +112,11 @@ class ftp_opt(object):
                         continue
                 f = open(filename, 'r')  # 发送文件
                 print('file exist start write..')
+                i=0
                 for line in f.read():
-                    print line
                     self.client.send(line)
+                    i +=1
+                    print('send line num is %s'% i)
 
                     # print("send done.")             # 传输完成
             else:       #服务器不存在此文件
@@ -122,20 +126,25 @@ class ftp_opt(object):
                 i = 1
                 for line in f.read():
                     self.client.send(line)
-                    i+=1
-                    print('write line num is %s'% i)
+                    #time.sleep(0.3)
+                    # i +=1
+                    # print('send line num is %s'% i)
             f.close()
         else:
             # 检测本地文件不存在
             print("%s is not exist" % filename)
 
     def exec_commands(self,send_data):
-        print('exec commands')
-        self.client.send(send_data)                                      #发送命令操作到服务器
 
-        result_dict = json.loads(self.client.recv(1024))                 #接收命令的结果长度，类型，状态字典
+        print('exec commands: %s'% send_data)
+        send_data=send_data.split('r')[1:]
+        send_data = ''.join(send_data)
 
-        recv_result = self.client.send('client send data')                    #发送接收命令执行的结果请求
+        self.client.send(send_data)                                         #发送命令操作到服务器
+
+        result_dict = json.loads(self.client.recv(1024))                    #接收命令的结果长度，类型，状态字典
+
+        recv_result = self.client.send('client send data')                #发送接收命令执行的结果请求
 
         if int(result_dict["len"]) > 1024:
             count = 0
@@ -149,6 +158,11 @@ class ftp_opt(object):
             recv_result = self.client.recv(1024)
             print(recv_result)
 
+    def local_commands(self,commands):
+        result = os.popen(commands).read()
+        if len(result) ==0:
+            result = 'Nothing display'
+        print result
 
 if __name__ == '__main__':
-    ftp_opt('localhost',1992)
+    ftp_opt('192.168.101.98',3991)

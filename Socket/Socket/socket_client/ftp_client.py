@@ -4,7 +4,7 @@
 
 import  socket,os
 
-server,port="localhost",9999
+server,port="localhost",1996
 
 
 client = socket.socket()

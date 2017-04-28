@@ -4,7 +4,7 @@
 import socket,os,commands
 
 
-ip,port = 'localhost',19992
+ip,port = 'localhost',1996
 
 server = socket.socket()
 server.bind((ip,port))
