@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 #encoding:utf-8
-
 import  socket,json,sys,os,commands,time
 
 class ftp_opt(object):
@@ -145,11 +144,6 @@ class ftp_opt(object):
             recv_result = self.client.recv(1024)
             print(recv_result)
 
-    def local_commands(self,commands):
-        result = os.popen(commands).read()
-        if len(result) ==0:
-            result = 'Nothing display'
-        print result
 
 if __name__ == '__main__':
     ftp_opt('192.168.101.98',3991)

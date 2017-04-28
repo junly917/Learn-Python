@@ -64,19 +64,6 @@ class local_login(object):
     def login_server(self):
         pass
 
-class login_server(object):
-    '''
-    登录远程服务器
-    '''
-    def __init__(self):
-        pass
-
-    def display_server(self):
-        pass
-
-    def login(self):
-        pass
-
 if __name__ == '__main__':
     run_display()
 
