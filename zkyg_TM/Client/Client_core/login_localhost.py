@@ -22,7 +22,7 @@ class login_localhost_class(object):
             'E or e':'Exit Program.return Transfer Machine',
 
         }
-        self.env_desc='==$'
+        self.env_desc='Connection host:'
 
     #打印登录信息
     @property
@@ -41,9 +41,14 @@ class login_localhost_class(object):
     @property
     def showhostlist(self):
         print("Postion \t Host ip")
-        print("-----------aaa-------------")
+        # print("-----------aaa-------------")
+        i= 1
+        hostlist={}
         for k,v in self.host_dict.items():
-            print k+':' +'\t'+v
+            hostlist[i] = v['ip']+',' +v['port']
+            print('%5d:\t\t%5s  (%s:%s)' %(i,k,v['ip'],v['port']))
+            i+=1
+        return hostlist
 
     #输入账号密码并认证
     def login(self):
@@ -62,22 +67,31 @@ class login_localhost_class(object):
                 self.conn_server()
 
     #连接中转机服务器
+    @property
     def conn_server(self):
         #列出主机清单
-        self.showhostlist
-
+        hostlist = self.showhostlist
+        print hostlist
+        #['124.200.40.0 2002', '10.0.78.1 22', '192.168.1.1 22']
         #连接主机
         while True:
-            conn = raw_input( self.env_desc).strip()
-            if len(conn) == 0 :
+            try:
+                conn = int(raw_input( self.env_desc).strip())
+            except Exception,e:
+                print("Please input digest,reinput")
                 continue
-            elif conn == 'quit':
+            if conn == 'quit':
                 sys.exit(0)
             else:
-                host = conn.split()[1]
-                if hasattr(self,conn):
-                    func = getattr(self,conn)
-                    func(host)
+                try:
+                    print(hostlist[conn])
+                    conn_host = hostlist[conn].split(',')[0]
+                    conn_port = hostlist[conn].split(',')[1]
+                    os.popen('ssh root@%s %s' %(conn_host,conn_port))
+                except  KeyError:
+                    print("you input is nothing host ")
+
+                # os.popen('ssh %s %s' %() )
         #添加主机
 
         #删除主机
@@ -91,3 +105,7 @@ class login_localhost_class(object):
     #下载文件到中转机服务器
     def download(self):
         pass
+
+
+s = login_localhost_class()
+s.conn_server
