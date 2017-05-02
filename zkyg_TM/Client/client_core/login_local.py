@@ -6,13 +6,14 @@ import hashlib
 import auth_login
 import getpass
 import sys,os
-
-from run_display import run_display_class
-
-PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SSH_Client = PATH+"extend_ssh\Xshell.exe"
-sys.path.append(PATH)
+BASEDIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASEDIR)
+SSH_Client = BASEDIR+"extend_ssh\Xshell.exe"
+sys.path.append(BASEDIR)
 sys.path.append(SSH_Client)
+
+
+from  Client.client_core.display_local import Display_func
 
 class login_localhost_class(object):
     #设置相应的环境变量
@@ -69,12 +70,11 @@ class login_localhost_class(object):
         while True:
             user = raw_input('Login:').strip()
             passwd = getpass.getpass('password:')
-            # print(passwd)
-            if len(user) ==0 or len(passwd) == 0:
-                continue
             if count > 6:
                 time.sleep(5)
             count +=1
+            if len(user) ==0 or len(passwd) == 0:
+                continue
             status = auth_login.auth(user,passwd,'dict')       #使用字典进行认证
             if status == 'login':
                 print('auth Sucesses.')
@@ -92,7 +92,7 @@ class login_localhost_class(object):
 
             chiose_host = raw_input( self.env_desc).strip()
             if chiose_host == 'quit' or chiose_host == 'exit':
-                run_display_class().keyin()
+                Display_func.User_Keyin()
                 # sys.exit(0)
             elif chiose_host == 'l' or chiose_host == 'L':
                 self.showhostlist

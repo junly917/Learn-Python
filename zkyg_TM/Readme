@@ -1,11 +1,69 @@
 目录结构
+client                      #本地主机上的操作
+    client_core
+        display_local       #打印功能输出、本地命令、帮助内容
+        login_local         #用户输入、密码加密、认证
+        local_manage_tm     #列出本地中转机的功能、如添加、删除、监控IDC主机，上传、下载文件，初化IDC中转机
+        local_manage_file   #上传、下载文件
+        local_manage_host   #添加、删除、监控IDC主机
+        local_init_host     #初化IDC中转机
+        user_log            #记录用户操作
+        tm_manager_user     #中转机的用户管理操作、中转机与用户关系对应
+    bin
+        client_tm             #启动程序
+    conf
+        dbconf              #数据库配置文件
+    extend_ssh              #xshell 工具
+    log
+        user.log            #记录用户操作
+
+server                      #中转机上的操作
+    server_core
+        login_server        #用户认证功能
+        display_server      #显示功能清单
+        server_manage_file   #上传、下载文件
+        server_manage_host   #添加、删除、监控IDC主机
+        server_init_host     #初化服务器
+        server_delopy       #部署服务入口
+            server_Cobbler  #cobbler部署
+            server_bind     #bind 部署
+            server_nfs      #nfs部署
+            server_lamp     #lamp 部署
+            server_lnmp     #lnmp 部署
+            server_tomcat   #tomcat部署
+            server_ftp      #ftp部署
+            server_lvs      #lvs部署
+            server_lvs_kp   #lvs+keepalive
+            server_mysql    #mysql部署
+            server_backup   #服务器备份
+        server_monitor      #添加服务器监控
+        server_wiki         #服务器知识库
+    bin
+        client_tm           #启动程序
+    conf
+        dbconf              #数据库配置文件
+    log
+        server.log          #服务器日志
+
 目录说明
 1.安装指南
     a.执行extend_ssh下的install.bat脚本用于安装远程连接工具，并注册到系统，注：请关闭杀毒软件或信任此操作
 2.使用指南
-2.1 登录系统
-2.2 登录服务器
-2.3 上传文件
-2.4 下载文件
-2.5 添加服务器
-2.6 监控服务器
+2.1 登录系统IDC中转服务器
+2.2 登录各IDC中转服务器
+2.3 上传文件到中转服务器
+2.4 下载文件到中转服务器
+2.5 添加IDC中转服务器
+2.6 监控IDC中转服务器
+2.7 登录服务器
+2.8 添加服务器
+2.9 删除服务器
+2.10 基本监控服务器
+2.11 部署服务至服务器
+2.12 初始化服务器
+2.13 自定义监控服务器
+2.14 添加知识库
+
+
+
+

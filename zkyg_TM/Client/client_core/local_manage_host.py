@@ -7,7 +7,7 @@ import auth_login
 import getpass
 import sys,os
 
-import run_display
+import display_local
 
 PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SSH_Client = PATH+"extend_ssh\Xshell.exe"

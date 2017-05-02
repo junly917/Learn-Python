@@ -5,7 +5,7 @@ import sys,os,commands
 PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PATH)
 
-from  login_localhost import login_localhost_class
+from  login_local import login_localhost_class
 
 #上传下载文件操作
 class manager_file(object):
