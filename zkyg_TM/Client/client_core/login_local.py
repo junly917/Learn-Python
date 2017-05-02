@@ -11,8 +11,6 @@ sys.path.append(BASEDIR)
 SSH_Client = BASEDIR+"extend_ssh\Xshell.exe"
 sys.path.append(BASEDIR)
 sys.path.append(SSH_Client)
-
-
 from  Client.client_core.display_local import Display_func
 
 class login_localhost_class(object):
