@@ -7,7 +7,7 @@ import auth_login
 import getpass
 import sys,os
 
-import run_display
+from run_display import run_display_class
 
 PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SSH_Client = PATH+"extend_ssh\Xshell.exe"
@@ -92,7 +92,7 @@ class login_localhost_class(object):
 
             chiose_host = raw_input( self.env_desc).strip()
             if chiose_host == 'quit' or chiose_host == 'exit':
-                run_display.run_display().keyin()
+                run_display_class().keyin()
                 # sys.exit(0)
             elif chiose_host == 'l' or chiose_host == 'L':
                 self.showhostlist
@@ -109,28 +109,3 @@ class login_localhost_class(object):
                     os.system('start xshell.exe %s:%s -newtab %s' %(real_ip,real_port,real_hostname))
                 except  KeyError:
                     print("you input is nothing host ")
-
-
-    #添加主机
-    def Add_host(self):
-        pass
-
-    #删除主机
-    def Del_host(self):
-        pass
-
-    #监控主机
-    def Monitor_host(self):
-        pass
-
-    #上传文件到中转机服务器
-    def upload(self):
-        pass
-
-    #下载文件到中转机服务器
-    def download(self):
-        pass
-
-
-# s = login_localhost_class()
-# s.conn_server

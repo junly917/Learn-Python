@@ -20,7 +20,7 @@ def Create_Yum_Repo():
             break
     while True:
         File_Baseurl = raw_input("Please Input Yum Repo BaseURL: ").strip()
-        if "http:/" == File_Baseurl[:6] or "file:/" == File_Baseurl[:6]  or "ftp://" == File_Baseurl[:6] :
+        if "http:/" == File_Baseurl[:6] or "file:/" == File_Baseurl[:6]  or "ftpdata://" == File_Baseurl[:6] :
             break
         else:
             print "Input Baseurl is invailed,please reinput"

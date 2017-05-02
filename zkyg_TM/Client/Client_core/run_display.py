@@ -6,13 +6,13 @@ import hashlib
 import auth_login
 import getpass
 import sys,os
-BASEDIR= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(BASEDIR)
+PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(PATH)
 import local_exec
 from login_localhost import login_localhost_class
 print sys.path
 
-class run_display(object):
+class run_display_class(object):
     def __init__(self):
         self.info = '''
         --------Welcome to Transfer Machine --------
