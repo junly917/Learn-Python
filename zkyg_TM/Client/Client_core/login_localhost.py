@@ -5,15 +5,14 @@ import time
 import hashlib
 import auth_login
 import getpass
-
 import sys,os
+
+import run_display
+
 PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SSH_Client = PATH+"extend_ssh\Xshell.exe"
 sys.path.append(PATH)
 sys.path.append(SSH_Client)
-print PATH
-print(SSH_Client)
-
 
 class login_localhost_class(object):
     #设置相应的环境变量
@@ -39,13 +38,15 @@ class login_localhost_class(object):
     def display_login_info(self):
         '''打印显示信息'''
         print self.info
-        self.login()
-        print("func \t Description")
-        print("---------info---------------")
-        print(self.host_dict)
-        for k,v in self.func_desc.items():
-            print k+':' +'\t'+v
-
+        #
+        # print("func \t Description")
+        # print("---------info---------------")
+        # print(self.host_dict)
+        # for k,v in self.func_desc.items():
+        #     print k+':' +'\t'+v
+        loginstatus = self.login()
+        if loginstatus == 'quit' :
+            self.conn_server
 
     #列出主机清单
     @property
@@ -68,7 +69,7 @@ class login_localhost_class(object):
         while True:
             user = raw_input('Login:').strip()
             passwd = getpass.getpass('password:')
-            print(passwd)
+            # print(passwd)
             if len(user) ==0 or len(passwd) == 0:
                 continue
             if count > 6:
@@ -88,14 +89,19 @@ class login_localhost_class(object):
         #['124.200.40.0 2002', '10.0.78.1 22', '192.168.1.1 22']
         #连接主机
         while True:
-            try:
-                chiose_host = int(raw_input( self.env_desc).strip())
-            except Exception,e:
-                print("Please input digest,reinput")
-                continue
-            if chiose_host == 'quit':
-                sys.exit(0)
+
+            chiose_host = raw_input( self.env_desc).strip()
+            if chiose_host == 'quit' or chiose_host == 'exit':
+                run_display.run_display().keyin()
+                # sys.exit(0)
+            elif chiose_host == 'l' or chiose_host == 'L':
+                self.showhostlist
             else:
+                try:
+                    chiose_host = int(chiose_host)
+                except Exception,e:
+                    print("Please input digest,reinput")
+                    continue
                 try:
                     real_hostname = Host_Dict[chiose_host].split(',')[0]
                     real_ip = Host_Dict[chiose_host].split(',')[1]
