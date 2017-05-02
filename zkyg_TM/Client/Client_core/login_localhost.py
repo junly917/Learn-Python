@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #encoding:utf-8
-import os,sys
+import os,sys,commands
 import time
 import hashlib
 import auth_login
@@ -13,7 +13,7 @@ class login_localhost_class(object):
                         Auth:Junly
         '''
         self.host_dict={
-            'host1':{'postion':'Office','ip':'192.168.1.1','port':'22'},
+            'host1':{'postion':'Office','ip':'192.168.2.2','port':'22'},
             'host2':{'postion':'DG-IDC','ip':'10.0.78.1','port':'22'},
             'host3':{'postion':'TJ-IDC','ip':'124.200.40.0','port':'2002'},
         }
@@ -87,7 +87,9 @@ class login_localhost_class(object):
                     print(hostlist[conn])
                     conn_host = hostlist[conn].split(',')[0]
                     conn_port = hostlist[conn].split(',')[1]
-                    os.popen('ssh root@%s %s' %(conn_host,conn_port))
+                    print ('/usr/bin/ssh root@%s -P%s' %(conn_host,conn_port))
+                    commands.getstatusoutput('/usr/bin/ssh root@%s -P%s' %(conn_host,conn_port))
+
                 except  KeyError:
                     print("you input is nothing host ")
 
