@@ -3,21 +3,21 @@
 import os,sys,commands
 import time
 import hashlib
-import auth_login
+import zkyg_TM.Client.client_core.auth_login
 import getpass
 import sys,os
 
-import display_local
+import zkyg_TM.Client.client_core.display_local
 
 PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SSH_Client = PATH+"extend_ssh\Xshell.exe"
 sys.path.append(PATH)
+SSH_Client = PATH+"extend_ssh\Xshell.exe"
 sys.path.append(SSH_Client)
 
 
-class manager_host(object):
+class Manager_Host(object):
     '''
-    主机管理操作
+    中转主机管理操作
     '''
     def __init__(self):
         pass
@@ -34,5 +34,7 @@ class manager_host(object):
     def Monitor_host(self):
         pass
 
-
+    #获取主机清单
+    def Get_hostlist(self):
+        pass
 

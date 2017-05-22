@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 #encoding:utf-8
-import os,sys,socket,commands,time,hashlib,json
+import os,sys,commands
+import time
+import hashlib
+import getpass
+
 
 #密码验证
 def auth(user,passwd,authtype):

@@ -3,13 +3,11 @@
 import os,sys,commands
 import time
 import hashlib,getpass
-import auth_login
-import sys,os
 BASEDIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(BASEDIR)
 
-# import local_exec
-from login_local import login_localhost_class
+from zkyg_TM.Client.client_core.login_local import login_localhost
+
 # print sys.path
 
 class Display_func(object):
@@ -46,12 +44,15 @@ class Display_func(object):
             if len(full_command) == 0 :
                 continue
             elif full_command == 'c' or full_command == 'connect':
-
-                login_localhost_class().display_login_info
+                login_localhost().display_login_info
+                pass
             elif full_command == 'q' or full_command == 'exit':
                 sys.exit(0)
             elif full_command == 'h' or full_command =='H':
                 Display_func()
             else:
                 self.Local_Exec(full_command)
-# Display().User_Keyin()
+
+
+# Display_func().User_Keyin()
+#Display_func()
