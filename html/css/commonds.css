@@ -30,15 +30,20 @@
     /*padding-top:0px  上面增加下面会减少、整个移动到上面*/
 
 
-
-
-.pg-head{
-    height:50px;
-    background:#1f6377;
-    text-align: center;
-    line-height: 50px;
+.cent_1000{
+    width: 1000px;height: 33px;
 }
 
+.pg-head{
+    background:#1f6377;
+    text-align: center;
+    height:33px;
+}
+.pg-menu{
+    background:#8fb3bd;
+    text-align: left;
+    height:33px;
+}
 .menu-size{
     font-size: 18px;
     font-family: 新宋体;
@@ -46,11 +51,20 @@
 }
 
 .left-body{
-    width: 30%;
+    border: 1px solid darkgray;
+    width: 20%;
     float: left;
     text-align: left;
-    height: 90px;
-    margin-right: 5px;
-    border: 3px;
-}
+    height: 190px;
+    margin-right: 10px;
 
+}
+.left-body-text{
+    background-color:#dddddd;
+    height: 25px;
+    text-align: left;
+    line-height: 25px
+}
+.float{
+    float: left;
+}
