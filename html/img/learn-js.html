@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <div id="li">sdlf</div>
+    <a>hello</a>
+    <a>body</a>
+
+    <label id=test style="width: 200px;height: 40px;">label</label>
+
+    <script>
+        function func(){
+            var tag = document.getElementById("test")
+            var content = tag.innerText
+            var f = content.charAt(0)
+            var l = content.substring(1,content.len)
+            tag.innerText = l + f
+        }
+
+        setInterval("func()",300)
+
+    </script>
+
+    <script>
+        var tag =document.getElementById('li')
+        tag.innerText='SDLF'
+        var tags = document.getElementsByTagName('a')
+        for (var i=0 ; i<=tags.length;i++){
+            tags[i].innerText="ABC"
+//            tags[i].innerText='Hello'
+        }
+    </script>
+</body>
+</html>

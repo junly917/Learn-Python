@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="css/commands.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/awesome4.7/css/font-awesome.min.css" />
+    <script src="js/commands.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+    <div class="divcenter borders" style="width:730px;height: 430px;z-index: 10; " >
+        <div class="col-sm-10 fleft" style="text-align: center">
+            <table>
+                <th class="col-sm-2 media fleft" style="text-align: center">主机名称</th>
+                <th class="col-sm-2 media fleft" style="text-align: center">主机IP </th>
+                <th class="col-sm-2 media fleft" style="text-align: center">区域 </th>
+                <th class="col-sm-2 media fleft" style="text-align: center">状态 </th>
+                <th class="col-sm-2 media fleft" style="text-align: center">快速查看</th>
+            </table>
+        </div>
+        <div class="col-sm-10 fleft" style="width: 100%;text-align: center;border: 1px solid black">
+            <table class="col-sm-10">
+                <tr class="col-sm-10" style="width: 100%">
+                    <td  class="col-sm-2 title-fonts fleft" style="cursor: pointer" onclick="showHostInfo()">host1</td>
+                    <td  class="col-sm-2 title-fonts fleft">1.1.1.1</td>
+                    <td  class="col-sm-2 title-fonts fleft">dg</td>
+                    <td  class="col-sm-2 title-fonts fleft">online</td>
+                    <td class="col-sm-2 title-fonts fleft"><i class="fa fa-plus" aria-hidden="true"></i></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!--遮罩层-->
+    <div class="allprint hide" style="opacity: 0.5;background-color: #bababa;z-index: -3" id="zhezhao" name="zhezhao">
+    </div>
+
+    <!--弹出主机信息框-->
+    <div class="borders divcenter hide" id="hostinfo" name="hostinfo" style="width: 400px;height: 400px;z-index: 15;background-color: white;" >
+        <div style="width: 100%;height: 35px;background: #a5c5e8;line-height: 35px;font-size: medium; position:relative;">主机信息</div>
+        <div style="width: 100%;height: 75%;margin-top: 5px">
+            <div style="width: 100%;height: 35px;" >
+                <label class="title-fonts" style="text-align: right">主机名称:</label>
+                <input type="text">
+            </div>
+            <div style="width: 100%;height: 35px;" >
+                <label  class="title-fonts" style="text-align: right">IP地址:</label>
+                <input type="text">
+            </div>
+            <div style="width: 100%;height: 35px;" >
+                <label class="title-fonts" style="text-align: right">区域:</label>
+                <input type="text">
+            </div>
+            <div style="width: 100%;height: 35px;" >
+                <label class="title-fonts" style="text-align: right">所属组:</label>
+                <input type="text">
+            </div>
+            <div style="width: 100%;height: 35px;" >
+                <label class="title-fonts" style="text-align: right">监控类型:</label>
+                <input type="text">
+            </div>
+            <div style="width: 100%;height: 35px;" >
+                <label class="title-fonts" style="text-align: right">系统类型:</label>
+                <input type="text">
+            </div>
+            <div style="width: 100%;height: 35px;" >
+                <label class="title-fonts" style="text-align: right">初始化时间:</label>
+                <input type="text">
+            </div>
+            <div style="width: 100%;height: 35px;" >
+                <label class="title-fonts" style="text-align: right">当前状态:</label>
+                <input type="text">
+            </div>
+        </div>
+        <div style="height: 25px; text-align: center;line-height: 25px;">
+            <button class="btn btn-success" type="button" value="submit" >更新</button>
+            <button class="btn btn-danger" type="button" value="submit" onclick=delHost("configdelhost") >删除</button>
+            <button class="btn btn-info" type="button" value="submit" onclick="closeInfo()">取消</button>
+        </div>
+    </div>
+    <!--结束弹出主机信息框-->
+
+      <!--弹出删除主机-->
+    <div class="fleft borders divcenter hide"  style="width: 180px;height: 180px;z-index: 130;" id="configdelhost" name="configdelhost">
+        <div class="fleft" style="background-color: #ea4638;width: 100%;height: 35px;line-height: 35px;">确定删除</div>
+        <div class="fleft" style="width: 100%;height:100px;text-align: center;line-height: 100px;">
+            <i class="fa fa-exclamation-triangle" style="color: red;font-size: large;" aria-hidden="true"></i>确认删除此主机吗？
+        </div>
+        <div class="fright">
+            <button class="btn btn-info"> 确认</button>
+            <button class="btn btn-success" onclick=closeThisWindow("configdelhost")> 取消</button>
+        </div>
+    </div>
+    <!--结束弹出删除主机-->
+
+
+
+</body>
+</html>

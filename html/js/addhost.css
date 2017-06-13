@@ -1,0 +1,62 @@
+.hostzone{
+    /*border: 1px #bcc3c3 solid;*/
+    box-shadow: 1px 1px 5px 5px #888888;
+    display: inline-block;
+    height: 400px;
+    width: 400px;
+}
+
+.hosttitle{
+    height: 30px;
+    width:100%;
+    float: left;
+    /*border: 1px solid #2ba938;*/
+    background-color: #d1dade;
+}
+.rtitle{
+    width:40%;
+    float: left;
+    text-align: left;
+    line-height: 30px;;
+}
+.rbutton{
+    width:40%;
+    float: right;;
+}
+.hostbody{
+    float: left;
+    margin-top: 3px;;
+    height: 310px;
+    width:100%;
+    /*border: 1px solid darkgrey;*/
+}
+.textblock{
+    height: 30px;
+    line-height: 30px;
+}
+.textlable{
+    margin-left: 30px;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    /*background-color: #1dc5a3;*/
+    display: inline-block;
+    text-align: right;
+}
+
+.textcontent{
+    width: 140px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.hostfoot{
+    float: left;
+    margin-top:3px;
+    height: 40px;
+    width:100%;
+    /*border:1px solid darkgoldenrod;;*/
+}
+.footcontent{
+    text-align: center;
+}

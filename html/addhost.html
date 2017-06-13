@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add host</title>
+    <link rel="stylesheet" href="js/addhost.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="hostzone">
+        <div class="hosttitle ">
+            <div class="rtitle">添加主机
+            </div>
+            <!--<div class="rbutton" style="text-align: right">X </div>-->
+        </div>
+        <div class="hostbody form-group">
+            <div class="textblock">
+                <label class="textlable" for="hostname">主机名称:</label>
+                <input id="hostname"class="textcontent" type="text" width="100px" placeholder="主机名称">
+                <label style="color: red"> *</label>
+            </div>
+            <div class="textblock">
+                <label class="textlable"  for="hostuser">主机用户:</label>
+                <input id="hostuser"class="textcontent" type="text" width="100px"  placeholder="登录系统用户">
+                <label style="color: red"> *</label>
+            </div>
+            <div class="textblock">
+                <label class="textlable" for="hostpass">主机密码:</label>
+                <input id="hostpass"class="textcontent" type="password" width="100px" placeholder="用户密码" >
+                <label style="color: red"> *</label>
+            </div>
+            <div class="textblock">
+                <label class="textlable" for="hostip">主机IP:</label>
+                <input id="hostip"class="textcontent" type="text" width="100px"  placeholder="主机IP地址">
+                <label style="color: red"> *</label>
+            </div>
+            <div class="textblock">
+                <label class="textlable"  for="hostgroup">系统类型:</label>
+                <select id="hosttype" name="hosttype">
+                    <option value="1" >Ubuntu</option>
+                    <option value="2" selected>Centos</option>
+                    <option value="3">Suse</option>
+                    <option value="4">Windows</option>
+                </select>
+            </div>
+            <div class="textblock">
+                <label class="textlable" >是否监控:</label>
+                <input type="checkbox" name="nagios" id="nagios"> <label for="nagios">nagios</label>
+                <input type="checkbox" name="nagios" id="zabbix"> <label for="zabbix">zabbix</label>
+            </div>
+            <div class="textblock" >
+                <div class="textlable" style="float: left;height: 30px;line-height: 30px;">
+                    <label class="text" style="height: 130px;" for="hostgroup" >所属组: </label>
+                </div>
+                <div style="float:left;margin-left: 6px;">
+                    <select multiple size="5" id="hostgroup" name="hostgroup" style="width: 180px;">
+                        <option value="1" selected>Linux Host</option>
+                        <option value="2">DBA</option>
+                        <option value="3">Web</option>
+                        <option value="4">LB</option>
+                        <option value="5">Nginx</option>
+                        <option value="6">Tomcat</option>
+                        <option value="7">PHP</option>
+                        <option value="8" >FTP</option>
+                </select>
+                </div>
+            </div>
+            <div class="textblock" style="width: 100%;float: left;">
+                <label class="textlable">数据中心:</label>
+                <select style="width: 140px;">
+                    <option value="1">东莞IDC</option>
+                    <option value="2" >天津IDC</option>
+                    <option value="3" selected>公司机房</option>
+                </select>
+            </div>
+        </div>
+        <div class="hostfoot">
+            <div class="footcontent">
+                <button type="button" class="btn btn-default">提交</button>
+                <button type="reset" class="btn btn-danger">重置</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

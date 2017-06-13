@@ -1,61 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+<head lang="en">
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="css/commonds.css" rel="stylesheet"  />
+    <title></title>
+    <link rel="stylesheet" href="css/commonds.css">
+    <script src="js/commonds.js"></script>
 </head>
-<body style="margin: 0 auto">
-    <!--顶部logo区域-->
-    <div style="background: #8794c3; height: 43px;">
-        <div style="margin-left: 50px;width: 1200px;height: 100%;;">
-            <div style=" width: 30%; float: left; text-align: left;;line-height: 43px;">
-                <div style="width:40px;float:left;height: 100%">
-                    <img src="img/logo.jpg" >
+<body >
+    <!--隐藏层-->
+    <div id='hide-layout' class="hide" style="top: 0;bottom: 0;right: 0;left: 0;;z-index: 10;opacity: 0.8;background-color: #dddddd;float: left;position: fixed;z-index: 11;">
+    </div>
+
+    <!--提示删除告警内容-->
+    <div id='addhost-module' class="pg-message hide" >
+        <div class="page-sub-menu" style="margin-top: 0px; width: 50%;float: left;">添加主机</div>
+        <div class="page-sub-menu" style="margin-top: 0px; width: 20%;float:right;text-align: right;">
+           <button>X</button>
+        </div>
+        <div class="page-sub-context">
+            <label style="width: 80px;text-align: right;display: inline-block;">用户名：</label><input type="text" ><br>
+            <label style="width: 80px; text-align: right;display: inline-block;">主机地址：</label><input type="text" ><br>
+            <label style="width: 80px ;text-align: right;display: inline-block;">密码：</label><input type="text" ><br>
+            <label style="width: 80px;text-align: right;display: inline-block;">认证方式：</label><input type="text" ><br>
+            <label style="width: 80px;text-align: right;display: inline-block;">主 机 组：</label><input type="text" ><br>
+        </div>
+        <div class="page-sub-bottom">
+            <button style="width: 50px;height: 20px;">确定</button>
+            <button style="width: 50px;height: 20px;" onclick="close_hide()">取消</button>
+            <button style="width: 50px;height: 20px;">重置</button>
+        </div>
+    </div>
+
+    <!--顶部登录框-->
+    <div class="login_css">
+        <div class="index-w">
+            <img src="img/logo.jpg" style="width: 60px;height: 58px;float: left;;">
+        </div>
+        <div class="w" style="line-height: 48px;">
+            <a class="a" href="#">Profile |</a>
+            <a class="a" href="#">Logout |</a>
+            <a class="a" href="#">Help</a>
+        </div>
+    </div>
+
+    <div class="index-w" style="height: 3px;margin-top: 30px;background-color:#dd514c"></div>
+
+    <!--左边菜单栏-->
+    <!--<div class="left-menu" id="menu">-->
+        <!--<div id="control" class="menu" onclick=ShowMenu('ControlMenu')>控制台</div>-->
+        <!--<div class="menu menu-hover" id="hostmenu"  onclick=ShowMenu('HostMenu') >主机管理</div>-->
+            <!--<div id="addhost" class="hide">添加主机</div>-->
+            <!--<div id="delhost" class="hide">删除主机</div>-->
+            <!--<div id="mgmthost"  class="hide">管理主机</div>-->
+        <!--<div id="AssertMenu" onclick=ShowMenu('AssertMenu') class="menu">资产管理</div>-->
+            <!--<div id="addhost1" class="page-sub-menu">添加主机</div>-->
+            <!--<div id="delhost1" >删除主机</div>-->
+            <!--<div id="mgmthost1">管理主机</div>-->
+        <!--<div id="MonitorMenu" onclick=ShowMenu('MonitorMenu') class="menu">监控管理</div>-->
+        <!--<div id="IdcMenu" onclick=ShowMenu('IdcMenu') class="menu">数据中心管理</div>-->
+        <!--<div id="UserMenu" onclick=ShowMenu('UserMenu') class="menu">用户管理</div>-->
+        <!--<div id="ConfigMenu" onclick=ShowMenu('ConfigMenu') class="menu">配置管理</div>-->
+    <!--</div>-->
+    <div class="left-menu" id="left-menu" >
+        <div id="item-control">
+            <div class="menu" id="ControlMenu" onclick=ShowMenu('ControlMenu')>控制台</div>
+            <!--<div class="page-sub-menu hide" id="host-opt1">-->
+                <!--<div id="AddHost1" class="page-sub-menu">添加主机</div>-->
+                <!--<div id="DelHost1" class="page-sub-menu">删除主机</div>-->
+            <!--</div>-->
+        </div>
+        <div  id="item-host">
+            <div class="menu" id="HostMenu" onclick=ShowMenu('HostMenu')>主机管理</div>
+            <div class="page-sub-menu hide " id="host-opt">
+                <div id="AddHost" class="page-sub-menu">添加主机</div>
+                <div id="DelHost" class="page-sub-menu">删除主机</div>
+            </div>
+        </div>
+        <div id="item-monitor" >
+            <div class="menu" id="MonitorMenu" onclick=ShowMenu('MonitorMenu')>监控管理</div>
+            <div class="page-sub-menu hide"  id="monitor-opt">
+                <div id="AddNagios" class="page-sub-menu">Nagios监控</div>
+                <div id="AddZabbix" class="page-sub-menu">Zabbix监控</div>
+            </div>
+        </div>
+    </div>
+
+    <!--内容部分-->
+    <div class="pg-index-body" >
+        <div class="index-w" >
+            <!--显示数据中心数量-->
+            <div class="pg-local-status"  style=" margin-left: 10px">
+                <div class="pg-status-graph" >
+                    <label class="pg-font" >IDC数据中心：</label>
+                </div>
+                <div class="pg-status-edit">
+                    <a class="pg-font" href="#" > 编辑</a>
+                    <a class="pg-font" href="#" >更新</a>
+                </div>
+            </div>
+            <div  class="pg-local-status" style=" margin-left: 10px">
+                <div class="pg-status-graph ">
+                    <label class="pg-font" >当前主机数：</label>
+                </div>
+                <div class="pg-status-edit">
+                    <a class="pg-font" href="#" onclick="addhost()"> 编辑</a>
+                    <a class="pg-font" href="#" >更新</a>
+                </div>
+            </div>
+            <div  class="pg-local-status" style=" margin-left: 10px">
+                <div class="pg-status-graph ">
+                    <label class="pg-font" >当前在线主机数：</label>
+                </div>
+                <div class="pg-status-edit">
+                    <a class="pg-font" href="#" >更新</a>
+                </div>
+            </div>
+
+            <!--告警框-->
+            <div  class="pg-local-status hide" style=" margin-left: 0;margin-top: 10px;width: 925px;">
+                <div class="pg-status-graph" style=" float:left;">
+                    <label class="pg-font" >异常告警信息：</label>
+                </div>
+                <div class="pg-status-edit">
+                    <a class="pg-font" href="#" >删除</a>
+                    <a class="pg-font" href="#" >存档</a>
+                </div>
+
+                <!--告警内容-->
+                <div style="width: 925px;;margin-top: 3px;float: left;display: inline-block">
+                    <table>
+                        <thead>
+                        <tr style=" border: 2px;">
+                            <td class="pg-tr">选择</td>
+                            <td class="pg-tr" style="margin-left: 10px">日期</td>
+                            <td class="pg-tr">告警类型</td>
+                            <td class="pg-tr">主机名称</td>
+                            <td class="pg-tr">告警信息</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>2017-10-30</td>
+                            <td>Warning</td>
+                            <td>HOST1</td>
+                            <td>Network Destenation is unreacheabled</td>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
 
             </div>
-            <div style=" width: 55%; float:left; text-align: right;line-height: 43px;;">
-                <a>当前用户：</a>
-            </div>
-            <div style=" width: 10%; float:left; text-align: right;line-height: 43px;;">
-                <a>用户配置文件</a>
-            </div>
-            <div style=" width: 5%; float:left; text-align: right;line-height: 43px;;">
-                <a>退出</a>
-            </div>
+
+
+
+        <script>
+            function addhost(){
+                document.getElementById('addhost-module').classList.remove('hide')
+                document.getElementById('hide-layout').classList.remove('hide')
+            }
+            function close_hide(){
+                document.getElementById('addhost-module').classList.add('hide')
+                document.getElementById('hide-layout').classList.add('hide')
+            }
+        </script>
 
         </div>
-    </div>
-
-    <!--菜单区域-->
-    <div style="background: greenyellow; height: 30px;">
-        <div style="margin-left: 50px;width: 1200px; height: 100%;">
-            <div style="margin-left: 0px;float: left; width: 120px; background: #dddddd;height: 100%; text-align: center;line-height: 30px;">首页 </div>
-            <div style="margin-left: 3px;float: left; width: 120px; background: #dddddd;height: 100%; text-align: center;line-height: 30px;">主机管理</div>
-            <div style="margin-left: 3px;float: left; width: 120px; background: #dddddd;height: 100%; text-align: center;line-height: 30px;">日志管理</div>
-            <div style="margin-left: 3px;float: left; width: 120px; background: #dddddd;height: 100%; text-align: center;line-height: 30px;">监控管理</div>
-            <div style="margin-left: 3px;float: left; width: 120px; background: #dddddd;height: 100%; text-align: center;line-height: 30px;">配置中心</div>
-            <div style="margin-left: 3px;float: left; width: 120px; background: #dddddd;height: 100%; text-align: center;line-height: 30px;">资产管理</div>
-        </div>
-    </div>
-
-    <!--主要内容区域-->
-    <div style="background: blue;height: auto;">
-        <div style="margin-left: 50px; width: 300px; height: 80px;background: brown;float: left;">
-            数据中心数量
-        </div>
-        <div style="margin-left: 0px; width: 900px; height: 80px;background:chocolate; float: left" >
-            主机告警清单
-        </div>
-        <div style="margin-left: 50px; width: 100px; height: 80px;background:chocolate; float: left" >
-            服务器日志
-        </div>
-        <div style="margin-left: 0px; width: 1100px; height: 80px;background:pink; float: left" >
-            监控中心
-        </div>
-        <div style="clear: both;"></div>
-    </div>
-
+</div>
 </body>
 </html>

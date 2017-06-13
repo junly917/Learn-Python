@@ -1,0 +1,179 @@
+body{
+    margin:0;
+}
+.w{
+    /*margin:0 auto;*/
+    /*width :1200px ;*/
+}
+.fleft{
+    float: left;
+}
+.fright{
+    float: right;
+}
+.hide {
+    display: none;
+}
+.displayed{
+    display: block;
+}
+.borders{
+    box-shadow: 1px 1px 5px 5px #888888;
+}
+
+.divcenter{
+    top:50%;
+    left:50%;
+    margin:0 auto;
+    margin-top: 30px;;
+}
+
+.allprint{
+    position:absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.pg-head{
+    height: 38px;
+    background-color: #DDDDDD;
+}
+.pg-head .head-logo{
+    width: 180px;
+    background-color: #8095a8;
+    line-height: 38px;
+    text-align: center;
+}
+
+.pg-head .head-user{
+    width: 180px;
+    float: right;
+    /*background-color: #8095a8;*/
+    line-height: 38px;
+    text-align: left;
+    margin-right: 30px;;
+}
+
+.pg-head .profile{
+    width: 70px;
+    text-align: center;
+    margin-top: 0;
+}
+.pg-head .head-user:hover .profile{
+    display: block;;
+}
+.profile-menu{
+    background-color: rgba(211, 212, 211, 0.08);
+}
+.profile-menu:hover{
+    background-color: rgba(13, 141, 219, 0.43);
+}
+.profile-menu .a{
+    text-decoration: none;
+    font-size:smaller;
+}
+
+.pg-body{
+    /*border: 2px solid red;*/
+    margin-top:  35px;
+    bottom: 0;
+    top: 0;
+    right:0;
+    left:0;
+    /*border:1px solid gold;*/
+    position: absolute;
+}
+
+.menu{
+    width: 150px;
+    margin-left: 8px;
+    top:0;
+    left:0;
+    bottom:0;
+    float: left;
+    position: absolute;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.menulist{
+    border: 1px solid black;
+    /*height: 95px;;*/
+}
+
+.mainmenu{
+    /*border: 1px solid blue;*/
+    height: 30px;
+    line-height:30px;
+}
+.mainmenu .l_item{
+    margin-left: 10px;;
+    width:80%;
+    float: left;
+}
+.mainmenu:hover{
+    background-color: #d1dade;
+}
+.mainmenu .r_item{
+    width:10%;
+    float: right;
+}
+.submenu{
+    /*border: 2px solid gold;*/
+    /*height: 60px;*/
+    margin-top: 3px;
+    top:3px;
+}
+
+.submenu .submenu_item{
+    height:18px;
+    width:100%;
+    margin-bottom: 0px;
+    text-align: left;
+    font-size: smaller;
+    border-top:1px solid #DDDDDD;;
+    display: inline-block;
+
+}
+.sub_a{
+    text-decoration:none;
+    text-decoration-color: #d1dade;
+    padding-left: 30px;
+    cursor: pointer;
+}
+.submenu .submenu_item:hover{
+    background-color: #DDDDDD;
+}
+
+.pg-content{
+    margin-left: 175px;
+    margin-top: 10px;
+    float: left;
+    width: 95%;
+    /*border: 1px solid #D3D4D3;*/
+    top:0;
+    left:0;
+    bottom:0;
+    position: absolute;
+}
+
+
+.pg-foot{
+    height:5%;
+    width:1200px;
+    margin-top: 0px;
+}
+.title-fonts {
+    width: 120px;
+    text-align: center;
+    font-size: small;
+    /*color: #0e9aef;*/
+}
+
+.body-fonts {
+    width: 120px;
+    text-align: center;
+    /*font-size: small;*/
+    /*color: #e8efed;*/
+}
