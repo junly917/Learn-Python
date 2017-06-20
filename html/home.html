@@ -9,205 +9,201 @@
     <link rel="stylesheet" href="css/commands.css" />
     <script src="js/commands.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/echarts.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+    <!--头部分-->
     <div class="pg-head ">
-        <div class="w">
-            <div class="head-logo fleft w">
-                Logo
-            </div>
-           <div class="head-user fright w " >
-                <div class="dropdown">
-                    <div class="dropdown-toggle" id="user" data-toggle="dropdown">
-                        User<span class="caret"></span>
-                    </div>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="user">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">配置文件</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">注销</a></li>
-                    </ul>
-                </div>
-           </div>
+        <div class="head-logo fleft w" >
+            Logo
         </div>
-    </div>
-    <div class="pg-body w" style="z-index: -10">
-        <!--左边菜单-->
-        <div class="menu borders">
-            <div class="menulist">
-                <div class="mainmenu" id="control_mgt" name="control_mgt" >
-                    <div class="l_item">
-                        <i class="fa fa-home" aria-hidden="true"></i>
-                        <a href="home.html" style="text-decoration:none;text-decoration-color: #d1dade;" > 主控台</a>
-                    </div >
+       <div class="head-user fright w " >
+            <div class="dropdown">
+                <div class="dropdown-toggle" id="user" data-toggle="dropdown">
+                    User<span class="caret"></span>
                 </div>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="user">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">配置文件</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">注销</a></li>
+                </ul>
             </div>
-
-            <!--主机管理主菜单-->
-            <div class="menulist">
-                <div class="mainmenu" id="host_mgt" name="host_mgt" onclick=ShowMenu("host_mgt")>
-                    <div class="l_item">
-                        <i class="fa fa-server" aria-hidden="true"></i> 主机管理
-                    </div >
-                    <div class="r_item">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div class="submenu hide">
-                    <div class="submenu_item ">
-                        <a  onclick="showAddHostHtml()" class="sub_a"> 添加主机</a>
-                    </div>
-                    <div class="submenu_item">
-                        <a onclick="showHostInfoHtml()" class="sub_a"> 编辑主机</a>
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-            </div>
-            <!--主机管理主菜单结束-->
-
-            <!--第2个主菜单开始-->
-            <div class="menulist">
-                <div class="mainmenu" id="monitor_mgt" name="monitor_mgt" onclick=ShowMenu("monitor_mgt")>
-                    <div class="l_item">
-                        <i class="fa fa-desktop" aria-hidden="true"></i> 监控管理
-                    </div >
-                    <div class="r_item">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div class="submenu hide" >
-                    <div class="submenu_item ">
-                        <a class="sub_a" href="nagios.html"> Nagios监控</a>
-                    </div>
-                    <div class="submenu_item ">
-                        <a class="sub_a" href="zabbix.html">Zabbix 监控</a>
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-            </div>
-            <!--第2个主菜单结束-->
-
-            <!--第3个主菜单开始-->
-             <div class="menulist">
-                <div class="mainmenu" id="dc_mgt" name="dc_mgt" onclick=ShowMenu("dc_mgt")>
-                    <div class="l_item">
-                        <i class="fa fa-university" aria-hidden="true"></i> 数据中心
-                    </div >
-                    <div class="r_item">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div class="submenu hide" >
-                    <div class="submenu_item ">
-                        <a href="add_dc.html" class="sub_a"> 添加数据中心</a>
-                    </div>
-                    <div class="submenu_item ">
-                        <a href="mgt_dc.html" class="sub_a"> 管理数据中心</a>
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-            </div>
-            <!--第3个主菜单结束-->
-
-            <!--第4个主菜单开始-->
-             <div class="menulist">
-                <div class="mainmenu" id="config_mgt" name="config_mgt" onclick=ShowMenu("config_mgt")>
-                    <div class="l_item">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 配置管理
-                    </div >
-                    <div class="r_item">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div class="submenu hide" >
-                    <div class="submenu_item ">
-                        <a href="initsys.html" class="sub_a"> 系统初始化</a>
-                    </div>
-                    <div class="submenu_item ">
-                        <a href="yum.html" class="sub_a"> Yum源</a>
-                    </div>
-                    <div class="submenu_item ">
-                        <a href="ftp.html" class="sub_a"> VsFTP</a>
-                    </div>
-                    <div class="submenu_item ">
-                        <a href="lnmp.html" class="sub_a"> LNMP</a>
-                    </div>
-                    <div class="submenu_item ">
-                        <a href="tomcat.html" class="sub_a"> Tomcat</a>
-                    </div>
-                    <div class="submenu_item ">
-                        <a href="lamp.html" class="sub_a"> LAMP</a>
-                    </div>
-                    <div class="submenu_item ">
-                        <a href="mysql.html" class="sub_a"> Mysql Rep</a>
-                    </div>
-                    <div class="submenu_item ">
-                        <a href="ha.html" class="sub_a"> LVS_KeepAlive</a>
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-            </div>
-            <!--第4个主菜单结束-->
-
-            <!--展示数据主菜单开始-->
-             <div class="menulist">
-                <div class="mainmenu" id="data_mgt" name="data_mgt" onclick=ShowMenu("data_mgt")>
-                    <div class="l_item">
-                        <i class="fa fa-line-chart" aria-hidden="true"></i> 数据展示
-                    </div >
-                    <div class="r_item">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div class="submenu hide" >
-                    <div class="submenu_item ">
-                        <a href="addshow.html" class="sub_a">添加展示数据</a>
-                    </div>
-                    <div class="submenu_item " style="left: 10px;">
-                        <a href="mgtshow.html" class="sub_a">管理展示数据</a>
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-            </div>
-            <!--展示数据主菜单结束-->
-
-            <!--执行命令主菜单开始-->
-             <div class="menulist">
-                <div class="mainmenu" id="cmd_mgt" name="cmd_mgt" onclick=ShowMenu("cmd_mgt")>
-                    <div class="l_item">
-                        <i class="fa fa-window-restore" aria-hidden="true"></i> 执行命令
-                    </div >
-                    <div class="r_item">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div class="submenu hide" >
-                    <div class="submenu_item ">
-                        <a href="webssh.html" class="sub_a">WebSSh</a>
-                    </div>
-                    <div class="submenu_item " style="left: 10px;">
-                        <a href="tmhost.html" class="sub_a">中转机</a>
-                    </div>
-                    <div style="clear: both;"></div>
-                </div>
-            </div>
-            <!--执行命令主菜单结束-->
-
-        </div>
-
-        <!--主要区域-->
-        <div class="pg-content" id="maincontent" name="maincontent">
-            <div>
-
-            </div>
-        </div>
-
+       </div>
     </div>
 
-    <div style="clear:both;"></div>
+    <!--中间左边菜单-->
+    <div style="width: 200px;top: 40px;left: 0;;bottom: 0;position:absolute;">
+         <!--控制台-->
+        <div class="menulist">
+            <div class="mainmenu" id="control_mgt" name="control_mgt" >
+                <div class="l_item">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    <a href="home.html" style="text-decoration:none;text-decoration-color: #d1dade;" > 主控台</a>
+                </div >
+            </div>
+        </div>
+        <!--控制台结束-->
 
-    <div class="pg-footer">
+        <!--主机管理主菜单-->
+        <div class="menulist">
+            <div class="mainmenu" id="host_mgt" name="host_mgt" onclick=ShowMenu("host_mgt")>
+                <div class="l_item">
+                    <i class="fa fa-server" aria-hidden="true"></i> 主机管理
+                </div >
+                <div class="r_item">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="submenu hide">
+                <div class="submenu_item ">
+                    <a  onclick="showAddHostHtml()" class="sub_a"> 添加主机</a>
+                </div>
+                <div class="submenu_item">
+                    <a onclick="showHostInfoHtml()" class="sub_a"> 编辑主机</a>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <!--主机管理主菜单结束-->
+
+        <!--第2个主菜单开始-->
+        <div class="menulist">
+            <div class="mainmenu" id="monitor_mgt" name="monitor_mgt" onclick=ShowMenu("monitor_mgt")>
+                <div class="l_item">
+                    <i class="fa fa-desktop" aria-hidden="true"></i> 监控管理
+                </div >
+                <div class="r_item">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="submenu hide" >
+                <div class="submenu_item ">
+                    <a class="sub_a" href="nagios.html"> Nagios监控</a>
+                </div>
+                <div class="submenu_item ">
+                    <a class="sub_a" href="zabbix.html">Zabbix 监控</a>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <!--第2个主菜单结束-->
+
+        <!--第3个主菜单开始-->
+         <div class="menulist">
+            <div class="mainmenu" id="dc_mgt" name="dc_mgt" onclick=ShowMenu("dc_mgt")>
+                <div class="l_item">
+                    <i class="fa fa-university" aria-hidden="true"></i> 数据中心
+                </div >
+                <div class="r_item">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="submenu hide" >
+                <div class="submenu_item ">
+                    <a href="add_dc.html" class="sub_a"> 添加数据中心</a>
+                </div>
+                <div class="submenu_item ">
+                    <a href="mgt_dc.html" class="sub_a"> 管理数据中心</a>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <!--第3个主菜单结束-->
+
+        <!--第4个主菜单开始-->
+         <div class="menulist">
+            <div class="mainmenu" id="config_mgt" name="config_mgt" onclick=ShowMenu("config_mgt")>
+                <div class="l_item">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 配置管理
+                </div >
+                <div class="r_item">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="submenu hide" >
+                <div class="submenu_item ">
+                    <a href="initsys.html" class="sub_a"> 系统初始化</a>
+                </div>
+                <div class="submenu_item ">
+                    <a href="yum.html" class="sub_a"> Yum源</a>
+                </div>
+                <div class="submenu_item ">
+                    <a href="ftp.html" class="sub_a"> VsFTP</a>
+                </div>
+                <div class="submenu_item ">
+                    <a href="lnmp.html" class="sub_a"> LNMP</a>
+                </div>
+                <div class="submenu_item ">
+                    <a href="tomcat.html" class="sub_a"> Tomcat</a>
+                </div>
+                <div class="submenu_item ">
+                    <a href="lamp.html" class="sub_a"> LAMP</a>
+                </div>
+                <div class="submenu_item ">
+                    <a href="mysql.html" class="sub_a"> Mysql Rep</a>
+                </div>
+                <div class="submenu_item ">
+                    <a href="ha.html" class="sub_a"> LVS_KeepAlive</a>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <!--第4个主菜单结束-->
+
+        <!--展示数据主菜单开始-->
+         <div class="menulist">
+            <div class="mainmenu" id="data_mgt" name="data_mgt" onclick=ShowMenu("data_mgt")>
+                <div class="l_item">
+                    <i class="fa fa-line-chart" aria-hidden="true"></i> 数据展示
+                </div >
+                <div class="r_item">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="submenu hide" >
+                <div class="submenu_item ">
+                    <a href="addshow.html" class="sub_a">添加展示数据</a>
+                </div>
+                <div class="submenu_item " style="left: 10px;">
+                    <a href="mgtshow.html" class="sub_a">管理展示数据</a>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <!--展示数据主菜单结束-->
+
+        <!--执行命令主菜单开始-->
+         <div class="menulist">
+            <div class="mainmenu" id="cmd_mgt" name="cmd_mgt" onclick=ShowMenu("cmd_mgt")>
+                <div class="l_item">
+                    <i class="fa fa-window-restore" aria-hidden="true"></i> 执行命令
+                </div >
+                <div class="r_item">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="submenu hide" >
+                <div class="submenu_item ">
+                    <a href="webssh.html" class="sub_a">WebSSh</a>
+                </div>
+                <div class="submenu_item " style="left: 10px;">
+                    <a href="tmhost.html" class="sub_a">中转机</a>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <!--执行命令主菜单结束-->
     </div>
+
+    <!--中间主体部分-->
+    <div style="top: 40px;bottom: 0;left: 200px;right: 0;position:absolute; overflow:auto;min-width: 600px;" id="maincontent" name="maincontent">
+            <!--服务器信息-->
+            <div id="main" style="width: 600px;height: 400px;background-color: #0d8ddb" onload="loadhostinfo();">
+            </div>
+    </div>
+
+    <div style="left: 0;right: 0;;height: 30px;bottom: 0px;float:left;position:absolute;background-color:darkgreen">sdfsdf</div>
 </body>
 </html>

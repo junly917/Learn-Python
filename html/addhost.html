@@ -10,7 +10,7 @@
 <body>
     <div class="hostzone divcenter borders" style="position: absolute;">
         <div class="hosttitle ">
-            <div class="rtitle">添加主机
+            <div class="rtitle" style="font-size: 20px;;">添加主机
             </div>
             <!--<div class="rbutton" style="text-align: right">X </div>-->
         </div>
@@ -32,12 +32,12 @@
             </div>
             <div class="textblock">
                 <label class="textlable" for="hostip">主机IP:</label>
-                <input id="hostip"class="textcontent" type="text" width="100px"  placeholder="主机IP地址">
+                <input id="hostip" class="textcontent" type="text" width="100px"  placeholder="主机IP地址">
                 <label style="color: red"> *</label>
             </div>
             <div class="textblock">
                 <label class="textlable"  for="hostgroup">系统类型:</label>
-                <select id="hosttype" name="hosttype">
+                <select class="selectcss" id="hosttype" name="hosttype">
                     <option value="1" >Ubuntu</option>
                     <option value="2" selected>Centos</option>
                     <option value="3">Suse</option>
@@ -46,8 +46,8 @@
             </div>
             <div class="textblock">
                 <label class="textlable" >是否监控:</label>
-                <input type="checkbox" name="nagios" id="nagios"> <label for="nagios">nagios</label>
-                <input type="checkbox" name="nagios" id="zabbix"> <label for="zabbix">zabbix</label>
+                <input type="checkbox" name="nagios" id="nagios" style="height: 16px;width: 16px;"> <label for="nagios">nagios</label>
+                <input type="checkbox" name="nagios" id="zabbix" style="height: 16px;width: 16px;"> <label for="zabbix">zabbix</label>
             </div>
             <div class="textblock" >
                 <div class="textlable" style="float: left;height: 30px;line-height: 30px;">
@@ -68,7 +68,7 @@
             </div>
             <div class="textblock" style="width: 100%;float: left;">
                 <label class="textlable">数据中心:</label>
-                <select style="width: 140px;">
+                <select class="selectcss">
                     <option value="1">东莞IDC</option>
                     <option value="2" >天津IDC</option>
                     <option value="3" selected>公司机房</option>
