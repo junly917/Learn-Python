@@ -2,8 +2,8 @@
     /*border: 1px #bcc3c3 solid;*/
     box-shadow: 1px 1px 5px 5px #888888;
     display: inline-block;
-    height: 630px;
-    width: 550px;
+    height: 530px;
+    width: 480px;
 }
 
 .hosttitle{
@@ -26,13 +26,13 @@
 .hostbody{
     float: left;
     margin-top: 3px;;
-    height: 500px;
+    height: 400px;
     width:100%;
     /*border: 1px solid darkgrey;*/
 }
 .textblock{
-    height: 50px;
-    line-height: 50px;
+    height: 40px;
+    line-height: 40px;
     font-size: 12px;
 }
 .textlable{
