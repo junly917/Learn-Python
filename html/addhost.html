@@ -10,7 +10,7 @@
 <body>
     <div class="hostzone divcenter borders" style="position: absolute;">
         <div class="hosttitle ">
-            <div class="rtitle" style="font-size: 20px;;">添加主机
+            <div class="rtitle" style="font-size: 16px;;">添加主机
             </div>
             <!--<div class="rbutton" style="text-align: right">X </div>-->
         </div>
@@ -42,12 +42,13 @@
                     <option value="2" selected>Centos</option>
                     <option value="3">Suse</option>
                     <option value="4">Windows</option>
+                    <option value="5">Debian</option>
                 </select>
             </div>
             <div class="textblock">
                 <label class="textlable" >是否监控:</label>
-                <input type="checkbox" name="nagios" id="nagios" style="height: 16px;width: 16px;"> <label for="nagios">nagios</label>
-                <input type="checkbox" name="nagios" id="zabbix" style="height: 16px;width: 16px;"> <label for="zabbix">zabbix</label>
+                <input type="checkbox" name="nagios" id="nagios" style="height: 16px;width: 16px;"> <label for="nagios" style="font-size: 15px;line-height: 16px;text-align: center">nagios</label>
+                <input type="checkbox" name="nagios" id="zabbix" style="height: 16px;width: 16px;"> <label for="zabbix" style="font-size: 15px;line-height: 16px;text-align: center;;">zabbix</label>
             </div>
             <div class="textblock" >
                 <div class="textlable" style="float: left;height: 30px;line-height: 30px;">
@@ -55,14 +56,14 @@
                 </div>
                 <div style="float:left;margin-left: 6px;">
                     <select multiple size="5" id="hostgroup" name="hostgroup" style="width: 180px;">
-                        <option value="1" selected>Linux Host</option>
-                        <option value="2">DBA</option>
-                        <option value="3">Web</option>
-                        <option value="4">LB</option>
-                        <option value="5">Nginx</option>
-                        <option value="6">Tomcat</option>
-                        <option value="7">PHP</option>
-                        <option value="8" >FTP</option>
+                        <option style="font-size: 14px;" value="1" selected>Linux Host</option>
+                        <option style="font-size: 14px;" value="2">Mysql</option>
+                        <option style="font-size: 14px;" value="3">Apache</option>
+                        <option style="font-size: 14px;" value="4">LVS+Keepalived</option>
+                        <option style="font-size: 14px;" value="5">Nginx</option>
+                        <option style="font-size: 14px;" value="6">Tomcat</option>
+                        <option style="font-size: 14px;" value="7">PHP</option>
+                        <option style="font-size: 14px;" value="8" >FTP</option>
                 </select>
                 </div>
             </div>

@@ -63,6 +63,9 @@
                 <div class="submenu_item">
                     <a onclick="showHostInfoHtml()" class="sub_a"> 编辑主机</a>
                 </div>
+                <div class="submenu_item">
+                    <a onclick="ImportHostHtml()" class="sub_a"> 批量导入</a>
+                </div>
                 <div style="clear: both;"></div>
             </div>
         </div>
@@ -199,11 +202,64 @@
 
     <!--中间主体部分-->
     <div style="top: 40px;bottom: 0;left: 200px;right: 0;position:absolute; overflow:auto;min-width: 600px;" id="maincontent" name="maincontent">
-            <!--服务器信息-->
-            <div id="main" style="width: 600px;height: 400px;background-color: #0d8ddb" onload="loadhostinfo();">
+        <!--数据中心、服务器信息-->
+        <div style="height: 280px;width: 1200px;border:1px solid;">
+            <div id="main" style="width: 300px;height: 260px;border: 1px solid;float: left;margin-top: 5px;margin-left: 10px;">
+                数据中心
             </div>
+            <div style="width: 300px;height: 250px;border: 1px solid #bababa;float: left;margin-top: 5px;margin-left: 10px;;">
+                当前在线主机、离线主机
+            </div>
+            <div style="width: 500px;height: 200px;border: 1px solid khaki;float: left;">
+                用户信息</div>
+        </div>
+
+        <!--本机信息-->
+        <div style="height: 300px;width: 1100px;border: 1px solid red;margin-top: 1px;">
+            <div style="height: 300px;width: 200px;float: left;">cpu信息</div>
+            <div style="height: 300px;width: 200px;float:left;">内存信息</div>
+            <div style="height: 300px;width: 200px;float:left;">磁盘信息</div>
+            <div style="height: 300px;width: 200px;float:left;">网卡信息</div>
+        </div>
+        <!--本机信息结束-->
+
+        <!--当前在线用户-->
+        <div style="width: 200px;height: 300px;">
+            主机告警信息
+        </div>
+
+        <!--当前在线用户结束-->
+
+        <!--命令行界面-->
+        <div style="width: 400px;height: 200px;border: 1px solid blue; ">
+            Commands
+        </div>
+        <!--命令行界面结束 -->
     </div>
 
-    <div style="left: 0;right: 0;;height: 30px;bottom: 0px;float:left;position:absolute;background-color:darkgreen">sdfsdf</div>
+    <div style="left: 0;right: 0;;height: 30px;bottom: 0px;float:left;position:absolute;background-color:darkgreen">脚注信息</div>
+
+
+
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+        myChart.setOption({
+            title:{
+                text:'数据中心',
+            },
+            series: [
+                {
+                    name: '访问来源', type: 'pie', radius: '55%',
+                    toolip:{
+                        trigger:'item',
+                        formatter:"{a} <br/>{b} : {c} ({d}%)",
+                    },
+                    data: [
+                        {value: 35, name: '东莞IDC'}, {value: 24, name: '天津机房'}, {value: 40, name: '公司机房'}
+                    ]
+                }
+            ]
+        });
+    </script>
 </body>
 </html>
