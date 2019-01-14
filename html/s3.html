@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .shadow{
+        background-color: #0c0c0c;
+        opacity: 0.6;
+        z-index: 7;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: fixed;
+    }
+    .model{
+        background-color: #dddd;
+        height: 200px;
+        width: 300px;
+        z-index: 10;
+        position: fixed;
+        top:50%;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: -150px;
+    }
+    .hide{
+        display: none;
+    }
+</style>
+<body>
+    <table border="1px">
+        <tr>
+            <td>
+                <input type="checkbox" id="select_all">
+            </td>
+            <td> Host</td>
+            <td> Port</td>
+            <td> 操作</td>
+        </tr>
+        <tr>
+            <td> <input type="checkbox" ></td>
+            <td>1.1.1.1</td>
+            <td>80</td>
+            <td>
+                <a class="edit">edit</a>
+            </td>
+        </tr>
+        <tr>
+            <td> <input type="checkbox" ></td>
+            <td>1.1.1.2</td>
+            <td>80</td>
+            <td><a class="edit">edit</a></td>
+        </tr>
+        <tr>
+            <td> <input type="checkbox" ></td>
+            <td>1.1.1.3</td>
+            <td>80</td>
+            <td><a class="edit">edit</a></td>
+        </tr>
+    </table>
+    <input type="button" value="添加" onclick="Add()">
+
+    <div class="model hide">
+        Host:<input type="text" id="host"><br/>
+        Port:<input type="text" id="port"><br/>
+        <input id="cancle" type="button" value="取消">
+    </div>
+    <div class="shadow hide"></div>
+
+    <script src="js/jquery.min-2.2.1.js"></script>
+    <script>
+        function Add() {
+            $(".model,.hide").removeClass('hide')
+            $(".model input[type='text']").val('')
+        }
+
+        $('#cancle').click(function () {
+            $(".model,.shadow").addClass('hide')
+        })
+
+        $(".edit").click(function () {
+            $(".model,.hide").removeClass('hide');
+            var tdlist = $(this).parent().prevAll();
+            var port = tdlist.eq(0).text();
+            var host = tdlist.eq(1).text();
+            $(".model input[id='host']").val(host)
+            $(".model input[id='port']").val(port)
+        })
+
+        $("#select_all").change(function () {
+            var td_list = $(this).parent().parent().nextAll()
+            td_list.each(function () {
+                var n = $(this).first().children().eq(0).children();
+                n.prop('checked',n.prop('checked')?false:true );
+            })
+        })
+
+    </script>
+</body>
+</html>

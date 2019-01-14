@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>日志下载</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/hzxd_css.css">
+
 </head>
 
 <body style="margin: 0 auto">
@@ -22,12 +23,12 @@
     <!--标题区域结束-->
 
     <!--主要内容区载-->
-    <div class="pgbody background_grad">
+    <div class="pgbody">
 
         <!--菜单栏-->
         <div class="pgmenu">
             <div class="item">
-                <div class="menu" id="hostmgt" >主机管理</div>
+                <div class="menu" id="hostmgt">主机管理</div>
                 <div class="menu hide">
                     <div class="submenu" > 添加主机</div>
                     <div class="submenu"> 主机管理</div>
@@ -37,29 +38,44 @@
             <div class="item">
                 <div class="menu" id="usually">常用操作</div>
                 <div class="menu hide">
-                    <div class="submenu">
-                        <a href="dlogs.html">日志管理</a>
-                    </div>
+                    <div class="submenu"> 日志管理</div>
                     <div class="submenu"> 文件操作</div>
                 </div>
             </div>
-
-
         </div>
         <!--菜单栏结束-->
 
         <!--内容区域-->
         <div class="pgcontent">
+            <div class="data-head">
+                <div class="select_item">
+                    <span>选择环境：</span>
+                    <select>
+                        <option value="1">sit</option>
+                        <option value="2">uat</option>
+                        <option value="3">pro</option>
+                    </select>
+                </div>
+                <div class="select_item">
+                     选择服务器：
+                    <select>
+                        <option value="1">waimai</option>
+                        <option value="2">seller</option>
+                        <option value="3">delivery</option>
+                    </select>
+                </div>
+            </div>
+            <div class="data">
 
-            <div class="dlog_head">新消息</div>
+            </div>
         </div>
         <!--内容区域结束-->
 
     </div>
     <!--主要内容区域结束-->
 
-
     <script src="js/jquery.min-2.2.1.js"></script>
     <script src="js/hzxd_js.js"></script>
+
 </body>
 </html>

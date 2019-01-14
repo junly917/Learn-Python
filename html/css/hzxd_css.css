@@ -1,0 +1,133 @@
+/*通用样式*/
+.hide{
+    display: none;
+}
+
+/* 标题CSS*/
+.pghead{
+    height: 46px;
+    background-color: #00aced;
+    width: 100%;
+    line-height: 46px;
+}
+
+.pghead div{
+    line-height: 46px;
+}
+
+.pghead_logo{
+    float: left;
+    margin-left: 200px;
+}
+
+.pghead_menu{
+    float: right;
+    margin-left: 4px;
+    margin-right: 2px;
+    overflow: auto;
+}
+
+.pghead_menu div{
+    width: 80px;
+    text-align: center;
+    float:left;
+    margin-left:5px;
+    background-color: #fbcb09;
+}
+/* 标题CSS结束*/
+
+/* 主要内容CSS*/
+.pgbody{
+    position: fixed;
+    top: 46px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fbfafc;
+}
+/* 主要内容CSS结束*/
+
+/* 左边菜单CSS*/
+.pgmenu{
+    position: fixed;
+    top: 46px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 160px;
+    background-color: #e2e3da;
+}
+
+
+
+.background_grad {
+    background: -moz-linear-gradient(top, #fdfdfd 0%, #c9c9c9 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fdfdfd), color-stop(100%, #c9c9c9));
+    background: -webkit-linear-gradient(top, #fdfdfd 0%,#c9c9c9 100%);
+    background: -o-linear-gradient(top, #fdfdfd 0%,#c9c9c9 100%);
+    background: -ms-linear-gradient(top, #fdfdfd 0%,#c9c9c9 100%);
+    background: linear-gradient(to bottom, #fdfdfd 0%,#c9c9c9 100%);
+}
+
+.menu{
+    width: 100%;
+    background-color: #00aced;
+    margin-top: 2px;
+    line-height: 32px;
+    text-align: center;
+}
+
+.submenu{
+    margin-top: 1px;
+    width: 100%;
+    height: 24px;
+    font-size: 10px;
+    background-color: #e0e2de;
+    line-height: 24px;
+    text-align: left;
+}
+.submenu:hover{
+    background-color: #c2c8c0;
+}
+/* 左边菜单CSS结束*/
+
+/* 内容CSS*/
+.pgcontent{
+    position: absolute;
+    margin-top: 2px;
+    top: 0;
+    left: 162px;
+    right: 0;
+    bottom: 0;
+    border:1px solid red;
+}
+/* 内容CSS结束*/
+
+
+
+.data-head{
+    width: 100%;
+    height: 120px;
+    border: 1px solid red;
+    position: absolute;
+}
+
+.data-head .select_item{
+    width: 220px;
+    height: 40px;
+    border: 1px solid darkred;
+    text-align: center;
+    line-height: 40px;
+    float: left;
+}
+
+
+.data{
+    position: absolute;
+    width: 100%;
+    top: 120px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 1px solid grey;
+}
