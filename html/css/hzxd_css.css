@@ -2,7 +2,15 @@
 .hide{
     display: none;
 }
+.w{
+    margin-left: auto;
+    margin-right: auto;
+}
+.center{
+    width: 100%;
+    text-align: center;
 
+}
 /* 标题CSS*/
 .pghead{
     height: 46px;
@@ -14,6 +22,7 @@
 .pghead div{
     line-height: 46px;
 }
+
 
 .pghead_logo{
     float: left;
@@ -37,13 +46,59 @@
 /* 标题CSS结束*/
 
 /* 主要内容CSS*/
+
+.login_content{
+    height: 600px;
+    width: 800px;
+    min-width: 500px;
+    position: relative;
+    background-color: #fafafa;
+
+}
+.body-login{
+    width: 80%;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+.input-item{
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
 .pgbody{
     position: fixed;
     top: 46px;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #fbfafc;
+}
+
+.bgimg{
+    top: 20%;
+    left: 2%;
+    position: absolute;
+}
+.content{
+    width: 340px;
+    height: 280px;
+    top: 20%;
+    right: 5%;
+    position: absolute;
+    box-shadow:5px 5px 5px #919191,5px -5px 5px #919191,-5px 5px 5px #919191,-5px -5px 5px #919191;
+}
+
+.head-login{
+    width: 100%;
+    text-align: center;
+    line-height: 43px;
+    font-size: 24px;
+}
+.login-bottom{
+    bottom: 0;right: 0;position: absolute;
+}
+.login-bottom a{
+    text-decoration: none;
 }
 /* 主要内容CSS结束*/
 
@@ -99,7 +154,6 @@
     left: 162px;
     right: 0;
     bottom: 0;
-    border:1px solid red;
 }
 /* 内容CSS结束*/
 
@@ -108,7 +162,6 @@
 .data-head{
     width: 100%;
     height: 120px;
-    border: 1px solid red;
     position: absolute;
 }
 

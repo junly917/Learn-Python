@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>日志下载</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/hzxd_css.css">
 
 </head>
@@ -48,21 +49,18 @@
         <!--内容区域-->
         <div class="pgcontent">
             <div class="data-head">
-                <div class="select_item">
-                    <span>选择环境：</span>
-                    <select>
-                        <option value="1">sit</option>
-                        <option value="2">uat</option>
-                        <option value="3">pro</option>
-                    </select>
-                </div>
-                <div class="select_item">
-                     选择服务器：
-                    <select>
-                        <option value="1">waimai</option>
-                        <option value="2">seller</option>
-                        <option value="3">delivery</option>
-                    </select>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Dropdown
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
                 </div>
             </div>
             <div class="data">

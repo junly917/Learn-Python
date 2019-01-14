@@ -5,4 +5,7 @@ $(".item .menu").click(function () {
     $(this).siblings().removeClass('hide');
 })
 
-
+//登录事件
+$("#login").click(function () {
+    console.log($(#username,#password))
+})
