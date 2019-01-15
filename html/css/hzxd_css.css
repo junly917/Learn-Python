@@ -2,90 +2,179 @@
 .hide{
     display: none;
 }
+
 .w{
     margin-left: auto;
     margin-right: auto;
+    width: 980px;
+    min-width: 500px;
+    position: relative;
 }
+
 .center{
     width: 100%;
     text-align: center;
-
-}
-/* 标题CSS*/
-.pghead{
-    height: 46px;
-    background-color: #00aced;
-    width: 100%;
-    line-height: 46px;
 }
 
-.pghead div{
-    line-height: 46px;
-}
-
-
-.pghead_logo{
+.lfloat{
     float: left;
-    margin-left: 200px;
 }
 
-.pghead_menu{
+.rfloat{
     float: right;
-    margin-left: 4px;
-    margin-right: 2px;
-    overflow: auto;
 }
 
-.pghead_menu div{
-    width: 80px;
-    text-align: center;
-    float:left;
-    margin-left:5px;
-    background-color: #fbcb09;
-}
-/* 标题CSS结束*/
-
-/* 主要内容CSS*/
-
-.login_content{
-    height: 600px;
-    width: 800px;
-    min-width: 500px;
-    position: relative;
-    background-color: #fafafa;
-
-}
-.body-login{
-    width: 80%;
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
-}
-.input-item{
-    width: 200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.pgbody{
-    position: fixed;
-    top: 46px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.bgimg{
-    top: 20%;
-    left: 2%;
-    position: absolute;
-}
-.content{
+/*边框阴影*/
+.content-login{
     width: 340px;
     height: 280px;
     top: 20%;
     right: 5%;
     position: absolute;
     box-shadow:5px 5px 5px #919191,5px -5px 5px #919191,-5px 5px 5px #919191,-5px -5px 5px #919191;
+}
+
+/*左右居中*/
+.margin-center{
+    margin-left: auto;
+    margin-right: auto;
+}
+/*边框阴影*/
+.background_grad {
+    background: -moz-linear-gradient(top, #fdfdfd 0%, #c9c9c9 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fdfdfd), color-stop(100%, #c9c9c9));
+    background: -webkit-linear-gradient(top, #fdfdfd 0%,#c9c9c9 100%);
+    background: -o-linear-gradient(top, #fdfdfd 0%,#c9c9c9 100%);
+    background: -ms-linear-gradient(top, #fdfdfd 0%,#c9c9c9 100%);
+    background: linear-gradient(to bottom, #fdfdfd 0%,#c9c9c9 100%);
+}
+/* 标题CSS*/
+.pghead{
+    height: 46px;
+    background-color: white;
+    width: 100%;
+    line-height: 46px;
+}
+
+.pghead_logo{
+    height: 45px;
+    position: absolute;
+}
+
+.pghead_logo img{
+    margin: -103px;
+    width: 130px; height: 45px;
+}
+
+.pghead_userinfo{
+    position: absolute;
+    width: 40px;
+    height: 80px;
+    right: 0;
+    text-align: center;
+}
+
+.pghead_userinfo .user{
+    position: absolute;
+    width: 60px;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+}
+.pghead_userinfo .user:hover{
+    background-color: #1b6d85;
+}
+.pghead_userinfo .user:hover .user-menu{
+    display: block;
+    background-color: #1b6d85;
+}
+
+.pghead_userinfo .user-menu{
+    width: 120px;
+    height: 32px;
+    text-align: center;
+    top: 47px;
+    left: -30px;
+    position: absolute;
+    z-index: 10;
+    line-height: 32px;
+    display: none;
+}
+
+.pghead_userinfo .user-menu a {
+    display: block;
+    background-color: white ;
+    text-decoration: none;
+}
+.pghead_userinfo .user-menu a:hover {
+    display: block;
+    background-color: #d5d5d5;
+}
+
+/* 标题CSS结束*/
+
+/* 主要内容CSS*/
+.pgbody{
+    position: fixed;
+    top: 46px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 6;
+}
+
+/*登录信息*/
+.login_content{
+    height: 600px;
+    width: 800px;
+    min-width: 500px;
+    position: relative;
+    background-color: #fafafa;
+}
+
+.body-login {
+    width: 100%;
+    right: 0;
+    top: 44px;
+    bottom: 0;
+    position: absolute;
+    border-top:  1px solid black;
+}
+.body-login .item{
+    width: 100%;
+    margin-top: 10px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    position: relative;
+}
+.body-login .item .input{
+    width: 80%;
+    left: 30px;
+    top: 5px;
+    position: absolute;
+    text-align: center;
+    line-height: 50px;
+}
+.body-login .item .input-err{
+    width: 10px;
+    right: 20px;
+    position: absolute;
+    text-align: center;
+    color: red;
+    font-size: 20px;
+}
+.err-info {
+    color: #ff1000;
+    position: absolute;
+    width: 180px;
+    left: 30%;
+}
+
+.bgimg{
+    top: 20%;
+    left: 2%;
+    position: absolute;
 }
 
 .head-login{
@@ -95,11 +184,18 @@
     font-size: 24px;
 }
 .login-bottom{
-    bottom: 0;right: 0;position: absolute;
+    bottom: 10px;right: 10px;
+    position: absolute;
+    font-size: 10px;
 }
 .login-bottom a{
     text-decoration: none;
 }
+
+
+
+/*登录内容*/
+
 /* 主要内容CSS结束*/
 
 /* 左边菜单CSS*/
@@ -110,77 +206,81 @@
     right: 0;
     bottom: 0;
     width: 160px;
-    background-color: #e2e3da;
+    background-color: #383835;
+    overflow: auto;
 }
 
-
-
-.background_grad {
-    background: -moz-linear-gradient(top, #fdfdfd 0%, #c9c9c9 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fdfdfd), color-stop(100%, #c9c9c9));
-    background: -webkit-linear-gradient(top, #fdfdfd 0%,#c9c9c9 100%);
-    background: -o-linear-gradient(top, #fdfdfd 0%,#c9c9c9 100%);
-    background: -ms-linear-gradient(top, #fdfdfd 0%,#c9c9c9 100%);
-    background: linear-gradient(to bottom, #fdfdfd 0%,#c9c9c9 100%);
-}
-
-.menu{
-    width: 100%;
-    background-color: #00aced;
-    margin-top: 2px;
+.pgmenu .menu{
+    width:90%;
+    color: white;
+    font-size: 16px;
     line-height: 32px;
-    text-align: center;
+    margin-left: 10px;
+    display: inline-block;
+}
+.pgmenu .menu a {
+    text-decoration: none;
+    color: white;
+}
+.pgmenu .menu .m_menu:hover{
+    background-color: #75756f;
 }
 
-.submenu{
-    margin-top: 1px;
-    width: 100%;
-    height: 24px;
-    font-size: 10px;
-    background-color: #e0e2de;
-    line-height: 24px;
-    text-align: left;
+.pgmenu .menu .smenu:hover{
+    background-color: #75756f;
 }
-.submenu:hover{
-    background-color: #c2c8c0;
+.pgmenu .menu .s_menu{
+    height:32px;
+    color: white;
+    font-size: 16px;
+    line-height: 32px;
+    margin-left: 14px;
+    width: 90%;
 }
+.pgmenu .menu .smenu{
+
+}
+
 /* 左边菜单CSS结束*/
 
 /* 内容CSS*/
 .pgcontent{
-    position: absolute;
+    position: fixed;
     margin-top: 2px;
-    top: 0;
+    top: 46px;
     left: 162px;
     right: 0;
     bottom: 0;
+    z-index: 7;
 }
 /* 内容CSS结束*/
 
-
-
-.data-head{
+.pgcontent .data-head{
     width: 100%;
-    height: 120px;
-    position: absolute;
+    height: 60px;
+    position: relative;
+    border: 1px solid #000000;
 }
 
-.data-head .select_item{
-    width: 220px;
-    height: 40px;
-    border: 1px solid darkred;
-    text-align: center;
-    line-height: 40px;
+.pgcontent .data-head .select_item{
+    /*width: 220px;*/
+    /*border: 1px solid darkred;*/
+    line-height: 60px;
+    margin-left: 10px;
     float: left;
 }
 
-
-.data{
+.pgcontent .data{
     position: absolute;
     width: 100%;
-    top: 120px;
+    top: 60px;
     bottom: 0;
     left: 0;
     right: 0;
     border: 1px solid grey;
+}
+
+.pgcontent .data .data-content{
+    width: 80%;
+    border: 1px solid #ebebeb;
 }

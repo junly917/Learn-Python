@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>日志下载</title>
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/hzxd_css.css">
 
@@ -13,12 +13,26 @@
 
     <!--标题区域-->
     <div class="pghead" >
-        <div class="pghead_logo">Logo信息</div>
-        <div class="pghead_menu">
-            <div>注册</div>
-            <div>消息中心</div>
-            <div>个人中心</div>
-            <div style="clear:both;"></div>
+        <div class="w">
+            <div class="pghead_logo">
+                <img src="img/logo.png" alt="">
+            </div>
+            <div class="pghead_userinfo">
+                <div class="user">
+                    <span class="glyphicon glyphicon-user" style="font-size: 20px;" aria-hidden="true">
+                    </span>
+
+                    <div class="user-menu">
+                        <a href="#">编辑</a>
+                        <a href="#">注销</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="pghead_userinfo" style="right: 80px;">
+                <i class="fa fa-commenting fa-lg"><span>2</span></i>
+
+            </div>
         </div>
     </div>
     <!--标题区域结束-->
@@ -28,19 +42,38 @@
 
         <!--菜单栏-->
         <div class="pgmenu">
-            <div class="item">
-                <div class="menu" id="hostmgt">主机管理</div>
-                <div class="menu hide">
-                    <div class="submenu" > 添加主机</div>
-                    <div class="submenu"> 主机管理</div>
+            <div class="menu">
+                <div class="m_menu" id="ds">
+                    <a href="#" style="color: white;">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span> 首页
+                    </a>
                 </div>
-
             </div>
-            <div class="item">
-                <div class="menu" id="usually">常用操作</div>
-                <div class="menu hide">
-                    <div class="submenu"> 日志管理</div>
-                    <div class="submenu"> 文件操作</div>
+
+            <div class="menu">
+                <div class="m_menu"  id="hostmgt">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span> 服务器管理
+                </div>
+                <div class="s_menu hide">
+                    <div class="smenu">
+                        <a href="#" style="color: white;">子菜单1</a>
+                    </div>
+                    <div class="smenu"> <a href="#" style="color: white;">子菜单2</a> </div>
+                </div>
+            </div>
+
+            <div class="menu">
+                <div class="m_menu" id="usually">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span> 操作管理
+                    </a>
+                </div>
+                <div class="s_menu  hide">111
+                    <div class="smenu ">
+                        <a href="#" style="color: white;">子菜单2  </a>
+                    </div>
+                    <div class="smenu">
+                        <a href="#" style="color: white;">子菜单3 </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,22 +82,67 @@
         <!--内容区域-->
         <div class="pgcontent">
             <div class="data-head">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Dropdown
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                  </ul>
-                </div>
+                <form action="#" method="get">
+                    <div class="select_item">
+                        选择环境:
+                        <select name="select_env" style="width: 120px;" id="select_env">
+                            <option value="1">sit</option>
+                            <option value="2">uat</option>
+                            <option value="3">pro</option>
+                        </select>
+                    </div>
+
+                    <div class="select_item">
+                        选择服务器:
+                        <select name="select_env" style="width: 120px;" id="select_srv">
+                            <option value="1">waimai</option>
+                            <option value="2">seller</option>
+                            <option value="3">delivery</option>
+                            <option value="3">salesman</option>
+                            <option value="1">waimai-mvc</option>
+                            <option value="2">seller-mvc</option>
+                            <option value="3">delivery-mvc</option>
+                            <option value="3">salesman-mvc</option>
+                        </select>
+                    </div>
+                    <div class="select_item" >
+                        开始日期：
+                        <input type="datetime-local"  style="height: 30px;" value="2015-09-24T13:59:59"/>
+                    </div>
+                    <div class="select_item">
+                        结束日期：<input type="datetime-local"  style="height: 30px;" value="2015-09-24T13:59:59"/>
+                    </div>
+                    <div class="select_item">
+                        <button class="btn btn-default"value="查询">查询</button>
+                    </div>
+
+                </form>
+
             </div>
             <div class="data">
-
+                <div class="data-content">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td>序号</td>
+                                <td>文件名称</td>
+                                <td>下载地址</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class=".active">
+                                <td>1</td>
+                                <td>filename</td>
+                                <td>download</td>
+                            </tr>
+                            <tr class=".success">
+                                <td>1</td>
+                                <td>filename</td>
+                                <td>download</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!--内容区域结束-->

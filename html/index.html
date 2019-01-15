@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/hzxd_css.css">
 </head>
@@ -11,19 +11,33 @@
 <body style="margin: 0 auto">
 
     <!--标题区域-->
+
+    <!--标题区域-->
     <div class="pghead" >
-        <div class="pghead_logo">Logo信息</div>
-        <div class="pghead_menu">
-            <div>注册</div>
-            <div>消息中心</div>
-            <div>个人中心</div>
-            <div style="clear:both;"></div>
+        <div class="w">
+            <div class="pghead_logo">Logo</div>
+            <div class="pghead_userinfo">
+                <div class="user">
+                    <span class="glyphicon glyphicon-user" style="font-size: 20px;" aria-hidden="true">
+                    </span>
+
+                    <div class="user-menu">
+                        <a href="#">编辑</a>
+                        <a href="#">注销</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="pghead_userinfo" style="right: 80px;">
+                <i class="fa fa-commenting fa-lg"><span>2</span></i>
+
+            </div>
         </div>
     </div>
     <!--标题区域结束-->
 
     <!--主要内容区载-->
-    <div class="pgbody background_grad">
+    <div class="pgbody">
 
         <!--菜单栏-->
         <div class="pgmenu">
